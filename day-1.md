@@ -50,4 +50,16 @@ void main() {
    print(str4); 
 }
 ```
+String concatenation:
+
+You can join two strings using "+"
+
+```
+var firstString = "Hi, How are you doing?";
+var secondString = " I am doing fine!!";
+
+var combinedString = firstString + secondString;
+
+```
+
 

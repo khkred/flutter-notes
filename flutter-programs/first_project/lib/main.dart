@@ -13,12 +13,33 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  var _questionsList = [
-    "First Question",
-    "Second Question",
-    "Third Question",
-    "Fourth Question"
-  ];
+
+  var questionAndAnswers =
+  {
+    "Who invented Android?":  [
+      "Larry Page",
+      "Mark Zuckerberg",
+      "Andy Rubin",
+      "Matt Le Blanc"
+    ],
+    "What is the largest mammal on Earth?": [
+      "Elephant",
+      "Rhino",
+      "Giraffe",
+      "Human"
+    ],
+    "What is the full form of HTTP?": [
+      "Hyper Text Telecommunication Project",
+      "High Transfer Transmission Protocol",
+      "Hyper Text Transfer Protocol"
+    ]
+  };
+
+  List questionsList = [];
+
+
+  // Get List of Questions
+
 
   var _index = 0;
 
@@ -30,7 +51,10 @@ class MyAppState extends State<MyApp> {
     print(_index);
   }
 
-
+  void printTheList()
+  {
+    print(questionsList);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +66,11 @@ class MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Question(_questionsList[_index]),
+            Question(questionsList[_index]),
             Answer(answerChoice,'Answer 1'),
-            Answer(answerChoice,'Answer 2')
+            Answer(answerChoice,'Answer 2'),
+            ElevatedButton(onPressed: printTheList, child: Text("Print the list")),
+
           ],
         ),
       ),

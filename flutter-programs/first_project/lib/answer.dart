@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 
 class Answer extends StatelessWidget {
   final Function onPressedFunction;
-
-  Answer(this.onPressedFunction);
+  String buttonText;
+  Answer(this.onPressedFunction,this.buttonText);
 
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: ()=> onPressedFunction(),
-      child: Text("Custom Widget"),
+    return Container(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: ()=> onPressedFunction(),
+        child: Text(buttonText),
+      ),
     );
   }
 }

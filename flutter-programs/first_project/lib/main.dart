@@ -43,9 +43,8 @@ class MyAppState extends State<MyApp> {
         body: Column(
           children: [
             Question(_questionsList[_index]),
-            Answer(answerChoice),
-            ElevatedButton(onPressed: answerChoice, child: Text("Answer 2")),
-
+            Answer(answerChoice,'Answer 1'),
+            Answer(answerChoice,'Answer 2')
           ],
         ),
       ),

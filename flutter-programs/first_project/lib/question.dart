@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class Question extends StatelessWidget {
   String questionText;
 
+  // We can pass data to a class through constructors.
   Question(this.questionText);
 
   @override

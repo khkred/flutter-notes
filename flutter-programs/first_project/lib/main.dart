@@ -57,14 +57,16 @@ class MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text("Sample AppBar"),
         ),
-        body: Column(
+        body: if (_index < _questionsList.length){
+          Column(
           children: [
-            Question(_questionsList[_index]['questionText'] as String),
-            ...(_questionsList[_index]['answers'] as List).map(
-                    (option) => Answer(answerChoice, option)
-                ).toList()
-        ]
-        ),
+          Question(_questionsList[_index]['questionText'] as String),
+    ...(_questionsList[_index]['answers'] as List).map(
+    (option) => Answer(answerChoice, option)
+    ).toList()
+    ]
+    ),
+    }
       ),
     );
   }

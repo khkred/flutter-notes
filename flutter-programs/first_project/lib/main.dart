@@ -13,33 +13,31 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-
-  var questionAndAnswers =
-  {
-    "Who invented Android?":  [
-      "Larry Page",
-      "Mark Zuckerberg",
-      "Andy Rubin",
-      "Matt Le Blanc"
-    ],
-    "What is the largest mammal on Earth?": [
-      "Elephant",
-      "Rhino",
-      "Giraffe",
-      "Human"
-    ],
-    "What is the full form of HTTP?": [
-      "Hyper Text Telecommunication Project",
-      "High Transfer Transmission Protocol",
-      "Hyper Text Transfer Protocol"
-    ]
-  };
-
-  List questionsList = [];
-
+  final _questionsList = const [
+    {
+      'questionText': "Who invented Android?",
+      'answers': [
+        "Larry Page",
+        "Mark Zuckerberg",
+        "Andy Rubin",
+        "Matt Le Blanc"
+      ]
+    },
+    {
+      'questionText': "What is the largest mammal on Earth?",
+      'answers': ["Elephant", "Rhino", "Giraffe", "Human"]
+    },
+    {
+      'questionText': "What is the full form of HTTP?",
+      'answers': [
+        "Hyper Text Telecommunication Project",
+        "High Transfer Transmission Protocol",
+        "Hyper Text Transfer Protocol"
+      ]
+    }
+  ];
 
   // Get List of Questions
-
 
   var _index = 0;
 
@@ -51,14 +49,22 @@ class MyAppState extends State<MyApp> {
     print(_index);
   }
 
-  void printTheList()
+  List<Answer> getOptions(int index)
   {
-    print(questionsList);
+    List<Answer> optionsList = [];
+    var answersList = _questionsList[index]['answers'] as List;
+
+    for(var option in answersList)
+      {
+        optionsList.add(Answer(answerChoice, option));
+      }
+
+    return optionsList;
   }
+
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -66,12 +72,9 @@ class MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Question(questionsList[_index]),
-            Answer(answerChoice,'Answer 1'),
-            Answer(answerChoice,'Answer 2'),
-            ElevatedButton(onPressed: printTheList, child: Text("Print the list")),
-
-          ],
+            Question(_questionsList[_index]['questionText'] as String),
+        ...getOptions(_index),
+        ]
         ),
       ),
     );

@@ -49,19 +49,6 @@ class MyAppState extends State<MyApp> {
     print(_index);
   }
 
-  List<Answer> getOptions(int index)
-  {
-    List<Answer> optionsList = [];
-    var answersList = _questionsList[index]['answers'] as List;
-
-    for(var option in answersList)
-      {
-        optionsList.add(Answer(answerChoice, option));
-      }
-
-    return optionsList;
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +60,9 @@ class MyAppState extends State<MyApp> {
         body: Column(
           children: [
             Question(_questionsList[_index]['questionText'] as String),
-        ...getOptions(_index),
+            ...(_questionsList[_index]['answers'] as List).map(
+                    (option) => Answer(answerChoice, option)
+                ).toList()
         ]
         ),
       ),

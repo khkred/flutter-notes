@@ -42,13 +42,12 @@ class MyAppState extends State<MyApp> {
   var _index = 0;
 
   void answerChoice() {
-    setState(() {
-      _index++;
-    });
+      setState(() {
+        _index++;
+      });
 
     print(_index);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -57,16 +56,16 @@ class MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text("Sample AppBar"),
         ),
-        body: if (_index < _questionsList.length){
-          Column(
+        body: _index<_questionsList.length? Column(
           children: [
-          Question(_questionsList[_index]['questionText'] as String),
-    ...(_questionsList[_index]['answers'] as List).map(
-    (option) => Answer(answerChoice, option)
-    ).toList()
-    ]
-    ),
-    }
+            Question(_questionsList[_index]['questionText'] as String),
+            ...(_questionsList[_index]['answers'] as List)
+                .map((option) => Answer(answerChoice, option))
+                .toList()
+          ],
+        ) : Center(
+          child: Text("You are done!!"),
+        ),
       ),
     );
   }

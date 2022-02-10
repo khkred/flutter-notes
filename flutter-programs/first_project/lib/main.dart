@@ -80,7 +80,12 @@ class MyAppState extends State<MyApp> {
 
   var score = 0;
 
-
+void reset(){
+  setState(() {
+    _index = 0;
+    score = 0;
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +94,7 @@ class MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text("Sample AppBar"),
         ),
-        body: _index<_questionsList.length? Quiz(_questionsList,_index,answerChoice) : Results(score),
+        body: _index<_questionsList.length? Quiz(_questionsList,_index,answerChoice) : Results(score,reset),
       ),
     );
   }

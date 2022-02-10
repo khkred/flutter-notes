@@ -58,12 +58,22 @@ class MyAppState extends State<MyApp> {
 
   var _index = 0;
 
-  var answersIndex = [2,3,2,1,0];
+  var correctAnswers = ["Andy Rubin",
+    "Blue Whale",
+    "Hyper Text Transfer Protocol",
+    "T-Series",
+    "Yes"];
 
-  void answerChoice() {
+  void answerChoice(String buttonText) {
       setState(() {
+        if(buttonText == correctAnswers[_index])
+          {
+            score++;
+          }
         _index++;
       });
+
+
 
     print(_index);
   }

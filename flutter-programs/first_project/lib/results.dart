@@ -4,10 +4,14 @@ class Results extends StatelessWidget {
   final score;
 
   Results(this.score);
+
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text("Your score is: $score." ),
+      child: Text(
+        "Your score is: $score.",
+        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+      ),
     );
   }
 }

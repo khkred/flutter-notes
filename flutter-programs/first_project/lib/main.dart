@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'results.dart';
 import 'question.dart';
 import 'answer.dart';
+import 'quiz.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,7 +26,7 @@ class MyAppState extends State<MyApp> {
     },
     {
       'questionText': "What is the largest mammal on Earth?",
-      'answers': ["Elephant", "Rhino", "Giraffe", "Human"]
+      'answers': ["Elephant", "Rhino", "Giraffe", "Blue Whale"]
     },
     {
       'questionText': "What is the full form of HTTP?",
@@ -34,12 +35,30 @@ class MyAppState extends State<MyApp> {
         "High Transfer Transmission Protocol",
         "Hyper Text Transfer Protocol"
       ]
+    },
+    {
+      'questionText': "Who has the most subscribers on YouTube?",
+      'answers': [
+        "Pewdiepie",
+        "T-Series",
+        "Markiplier",
+        "Mr Beast"
+      ]
+    },
+    {
+      'questionText': "Did Neil Armstrong really land on the moon?",
+      'answers': [
+        "Yes",
+        "No"
+      ]
     }
   ];
 
   // Get List of Questions
 
   var _index = 0;
+
+  var answersIndex = [2,3,2,1,0];
 
   void answerChoice() {
       setState(() {
@@ -49,6 +68,10 @@ class MyAppState extends State<MyApp> {
     print(_index);
   }
 
+  var score = 0;
+
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -56,16 +79,7 @@ class MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text("Sample AppBar"),
         ),
-        body: _index<_questionsList.length? Column(
-          children: [
-            Question(_questionsList[_index]['questionText'] as String),
-            ...(_questionsList[_index]['answers'] as List)
-                .map((option) => Answer(answerChoice, option))
-                .toList()
-          ],
-        ) : Center(
-          child: Text("You are done!!"),
-        ),
+        body: _index<_questionsList.length? Quiz(_questionsList,_index,answerChoice) : Results(score),
       ),
     );
   }

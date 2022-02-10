@@ -7,16 +7,18 @@ class Results extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-        width:double.infinity,  
-        children: [
-        Text(
-          "Your score is: $score.",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)
-        ),
-        ElevatedButton(onPressed: (){}, child: Text("Reset Quiz")),
-      ]
+    return Container(
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+          Text(
+            "Your score is: $score.",
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)
+          ),
+          ElevatedButton(onPressed: (){}, child: Text("Reset Quiz")),
+        ]
+      ),
     );
   }
 }

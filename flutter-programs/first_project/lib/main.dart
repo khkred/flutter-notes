@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'results.dart';
-import 'question.dart';
-import 'answer.dart';
 import 'quiz.dart';
 
 void main() => runApp(MyApp());
@@ -38,19 +36,11 @@ class MyAppState extends State<MyApp> {
     },
     {
       'questionText': "Who has the most subscribers on YouTube?",
-      'answers': [
-        "Pewdiepie",
-        "T-Series",
-        "Markiplier",
-        "Mr Beast"
-      ]
+      'answers': ["Pewdiepie", "T-Series", "Markiplier", "Mr Beast"]
     },
     {
       'questionText': "Did Neil Armstrong really land on the moon?",
-      'answers': [
-        "Yes",
-        "No"
-      ]
+      'answers': ["Yes", "No"]
     }
   ];
 
@@ -58,34 +48,38 @@ class MyAppState extends State<MyApp> {
 
   var _index = 0;
 
-  var correctAnswers = ["Andy Rubin",
+  var correctAnswers = [
+    "Andy Rubin",
     "Blue Whale",
     "Hyper Text Transfer Protocol",
     "T-Series",
-    "Yes"];
+    "Yes"
+  ];
 
+  /**
+   * This method is called when we select an option
+   * @buttonText is used in order to get the Score.
+   */
   void answerChoice(String buttonText) {
-      setState(() {
-        if(buttonText == correctAnswers[_index])
-          {
-            score++;
-          }
-        _index++;
-      });
-
-
-
-    print(_index);
+    setState(() {
+      if (buttonText == correctAnswers[_index]) {
+        score++;
+      }
+      _index++;
+    });
   }
 
   var score = 0;
 
-void reset(){
-  setState(() {
-    _index = 0;
-    score = 0;
-  });
-}
+  /**
+   * This method resets The Quiz
+   */
+  void reset() {
+    setState(() {
+      _index = 0;
+      score = 0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +88,9 @@ void reset(){
         appBar: AppBar(
           title: const Text("Sample AppBar"),
         ),
-        body: _index<_questionsList.length? Quiz(_questionsList,_index,answerChoice) : Results(score,reset),
+        body: _index < _questionsList.length
+            ? Quiz(_questionsList, _index, answerChoice)
+            : Results(score, reset),
       ),
     );
   }

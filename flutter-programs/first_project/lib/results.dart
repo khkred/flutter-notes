@@ -17,7 +17,8 @@ class Results extends StatelessWidget {
             "Your score is: $score.",
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)
           ),
-          ElevatedButton(onPressed: reset(), child: Text("Reset Quiz")),
+          ElevatedButton(onPressed:()=> reset(),
+              child: Text("Reset Quiz")),
         ]
       ),
     );

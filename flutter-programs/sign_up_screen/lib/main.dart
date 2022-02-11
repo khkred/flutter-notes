@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:sign_up_screen/homepage.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    title: "Navigation",
+    home: MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -14,10 +18,21 @@ class MyApp extends StatefulWidget {
 void signIn(){}
 
 class _MyAppState extends State<MyApp> {
+
+  //Create a controller
+
+  final myController = TextEditingController();
+
+// Needs a method to dispose it.
+  @override
+  void dispose() {
+    myController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(title: Text("Login"),),
         body: Center(
           child: Container(
@@ -25,9 +40,10 @@ class _MyAppState extends State<MyApp> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextField(
+                  controller: myController,
                   decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
-                      labelText: "Enter Your Name"
+                      labelText: "Enter Your Name",
                   ),
                 ),
                 TextFormField(
@@ -37,12 +53,18 @@ class _MyAppState extends State<MyApp> {
                   ),
                   obscureText: true,
                 ),
-                ElevatedButton(onPressed: (){}, child: Text("Sign In"))
+                ElevatedButton(onPressed: (){
+
+                  print(myController.text);
+
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context)=>  HomePage()));
+
+                  }, child: Text("Sign In"))
               ],
             ),
           ),
         ),
-      ),
     );
   }
 }

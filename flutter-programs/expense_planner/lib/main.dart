@@ -10,11 +10,11 @@ void main() {
 
 class MyApp extends StatelessWidget {
 
-  List<Transaction> transactionsList = [
+  final List<Transaction> transactionsList = [
     Transaction(id: "t1", title: "Shoes", amount: 108.6, date: DateTime.now()),
     Transaction(id: "t2", title: "milk", amount: 30, date: DateTime.now()),
     Transaction(id: "t3", title: "Console", amount: 10000 , date: DateTime.now()),
-    Transaction(id: "id", title: "PC", amount: 50000, date: DateTime.now())
+    Transaction(id: "t4", title: "PC", amount: 50000, date: DateTime.now())
   ];
   @override
   Widget build(BuildContext context) {
@@ -32,10 +32,14 @@ class MyApp extends StatelessWidget {
                 elevation: 5,
               ),
             ),
-            Card(
-              color: Colors.amber,
-              child: Text("Transaction"),
-            ),
+           Column(
+             children: [
+               Card(child: Text(transactionsList[0].title),),
+               Card(child: Text(transactionsList[1].title),),
+               Card(child: Text(transactionsList[2].title),),
+               Card(child: Text(transactionsList[3].title),)
+             ],
+           ),
           ],
         ));
   }

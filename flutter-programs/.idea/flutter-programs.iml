@@ -15,6 +15,9 @@
       <excludeFolder url="file://$MODULE_DIR$/sign_up_screen/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/sign_up_screen/build" />
       <excludeFolder url="file://$MODULE_DIR$/sign_up_screen/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/expense_planner/build" />
+      <excludeFolder url="file://$MODULE_DIR$/expense_planner/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/expense_planner/.dart_tool" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

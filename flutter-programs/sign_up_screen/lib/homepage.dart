@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'credentials.dart';
 
 class HomePage extends StatelessWidget {
+  Credentials credentials;
+
+  HomePage(this.credentials);
+
   @override
   Widget build(BuildContext context) {
     return
@@ -12,8 +17,8 @@ class HomePage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Your username is _______"),
-              Text("Your password lenght is __________"),
+              Text(credentials.username),
+              Text(credentials.password),
             ],
           ),
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/flutter-programs/hello_world/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter-programs/hello_world/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter-programs/hello_world/build" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter-programs/flutter_tree/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter-programs/flutter_tree/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter-programs/flutter_tree/build" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter-programs/sign_up_screen/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter-programs/sign_up_screen/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter-programs/sign_up_screen/build" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter-programs/first_project/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter-programs/first_project/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter-programs/first_project/build" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter-programs/expense_planner/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter-programs/expense_planner/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter-programs/expense_planner/build" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

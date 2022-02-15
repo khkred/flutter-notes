@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'transaction.dart';
 
 class TransactionUI extends StatelessWidget {
-  final txn;
+  final Transaction txn;
 
   TransactionUI(this.txn);
   @override

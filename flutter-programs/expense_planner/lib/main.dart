@@ -33,7 +33,23 @@ class MyApp extends StatelessWidget {
               ),
             ),
            Column(
-             children: transactionsList.map((txn) => Card(child: Text(txn.title),)).toList(),
+             children: transactionsList.map((txn) => Card(child: Row(
+               children: [
+                 //First Child
+                 Container(
+                   child: Card(
+                     child: Text(txn.amount.toString()),
+                   ),
+                 ),
+                 // Second child is a column
+                 Column(
+                   children: [
+                     Text(txn.title),
+                     Text(txn.date.toString())
+                   ],
+                 )
+               ],
+             ),)).toList(),
            ),
           ],
         ));

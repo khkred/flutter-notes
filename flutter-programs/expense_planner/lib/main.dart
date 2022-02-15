@@ -32,24 +32,29 @@ class MyApp extends StatelessWidget {
                 elevation: 5,
               ),
             ),
-           Column(
-             children: transactionsList.map((txn) => Card(child: Row(
-               children: [
-                 //First Child
-                 Container(
-                   child: Card(
-                     child: Text(txn.amount.toString()),
+           Card(
+             child: Column(
+               children: transactionsList.map((txn) => Card(child: Row(
+                 children: [
+                   //First Child
+                   Container(
+                     child: Card(
+                       child: Text(txn.amount.toString(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.purple),),
+                     ),
+                     margin: EdgeInsets.symmetric(vertical:10,horizontal: 15),
+                     padding: EdgeInsets.all(10),
                    ),
-                 ),
-                 // Second child is a column
-                 Column(
-                   children: [
-                     Text(txn.title),
-                     Text(txn.date.toString())
-                   ],
-                 )
-               ],
-             ),)).toList(),
+                   // Second child is a column
+                   Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       Text(txn.title,style: TextStyle(fontSize: 15),),
+                       Text(txn.date.toString(),style: TextStyle(color: Colors.grey,fontSize: 10),)
+                     ],
+                   )
+                 ],
+               ),)).toList(),
+             ),
            ),
           ],
         ));

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'transaction.dart';
 
+import 'package:intl/intl.dart';
+
 class TransactionUI extends StatelessWidget {
   final Transaction txn;
 
@@ -34,7 +36,7 @@ class TransactionUI extends StatelessWidget {
               style: TextStyle(fontSize: 15),
             ),
             Text(
-              txn.date.toString(),
+              DateFormat().add_M().format(txn.date),
               style: TextStyle(
                   color: Colors.grey, fontSize: 10),
             )

@@ -16,7 +16,7 @@ void main() {
   ]
 
   //TODO 2: Using the map method print the name of the person using print()
-  print(peopleList.keys)
+
 }
 
 class Person {

@@ -8,5 +8,5 @@ class Dog
   final int Weight;
   final String Name;
 
-  Dog(this.Name,this.Breed, this.Age, this.Weight);
+  Dog({required this.Name,required this.Breed, required this.Age, required this.Weight});
 }

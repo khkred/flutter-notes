@@ -16,9 +16,11 @@ class MyApp extends StatelessWidget {
 
 
   var dogList = [
-    Dog("Rover", "German Sheperd", 8,5),
-    Dog("Lassie", "German Sheperd", 6,8),
-    Dog("Chop", "Rottweiler", 8,10)
+
+    Dog(Name: 'Rover', Breed: 'German Shepherd', Age: 8, Weight: 5),
+    Dog(Name: 'Lassie', Breed: 'German Shepherd', Age: 6, Weight: 8),
+    Dog(Name: 'Chop', Breed: 'Rottweiler', Age: 8, Weight: 10)
+
   ];
 
   @override

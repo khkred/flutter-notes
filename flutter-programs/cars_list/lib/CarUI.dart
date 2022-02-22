@@ -41,9 +41,16 @@ class CarUI extends StatelessWidget {
                 ),)
               ],
             ),
-
             //Second child is a Text Widget for the top speed
-            Text(car.topSpeed.toString(),),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+              margin: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+              child: Text(car.topSpeed.toString(),style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.purple,
+                fontSize: 18,
+              ),),
+            ),
           ],
         ),
       ),

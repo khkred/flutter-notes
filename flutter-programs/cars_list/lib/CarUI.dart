@@ -45,6 +45,11 @@ class CarUI extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
               margin: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.purple
+                )
+              ),
               child: Text(car.topSpeed.toString(),style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.purple,

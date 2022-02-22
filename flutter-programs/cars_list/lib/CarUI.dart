@@ -30,13 +30,20 @@ class CarUI extends StatelessWidget {
             //First child is a column , because it has model and make
             Column(
               children: [
-                Text(car.model),
-                Text(car.make)
+                Text(car.model,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16
+                ),),
+                Text(car.make,
+                style: TextStyle(
+                  color: Colors.grey
+                ),)
               ],
             ),
 
             //Second child is a Text Widget for the top speed
-            Text(car.topSpeed.toString()),
+            Text(car.topSpeed.toString(),),
           ],
         ),
       ),

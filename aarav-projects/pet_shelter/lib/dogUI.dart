@@ -28,16 +28,50 @@ class DogUI extends StatelessWidget {
           children: [
             Column(
               children: [
-                Text(dog.Name),
-                Text(dog.Breed),
-                Text(dog.Age.toString())
+                Text(dog.Name,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16
+                  ),),
+                Text(dog.Breed,
+                  style: TextStyle(
+                      color: Colors.grey
+                  ),)
               ],
             ),
-
-            Text(dog.Age.toString()),
+            //Second child is a Text Widget for the top speed
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+              margin: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Colors.purple
+                  )
+              ),
+              child: Text(dog.Age.toString(),style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.purple,
+                fontSize: 18,
+              ),),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+              margin: EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Colors.purple
+                  )
+              ),
+              child: Text(dog.Weight.toString(),style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.deepPurpleAccent,
+                fontSize: 18,
+              ),),
+            ),
           ],
         ),
       ),
     );
   }
 }
+

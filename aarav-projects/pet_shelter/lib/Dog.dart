@@ -5,7 +5,7 @@ class Dog
 {
   final String Breed;
   final int Age;
-  final int Weight;
+  final double Weight;
   final String Name;
 
   Dog({required this.Name,required this.Breed, required this.Age, required this.Weight});

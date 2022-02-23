@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
+import 'DogUI.dart';
+import 'Dog.dart';
+
 
 class DogForm extends StatefulWidget {
+  List<Dog> dogList;
 
+  DogForm({Key key = const Key('dogForm'), required this.dogList})
+      : super(key: key);
 
   @override
-  _DogFormState createState() => _DogFormState();
+  _CarFormState createState() => _CarFormState();
 }
 
-class _DogFormState extends State<DogForm> {
-
+class _CarFormState extends State<DogForm> {
   final nameController = TextEditingController();
   final breedController = TextEditingController();
   final ageController = TextEditingController();
   final weightController = TextEditingController();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,38 +27,32 @@ class _DogFormState extends State<DogForm> {
       children: [
         TextField(
           controller: nameController,
-          decoration: InputDecoration(
-              labelText: 'Name:'
-          ),
+          decoration: InputDecoration(labelText: 'Name:'),
         ),
         TextField(
           controller: breedController,
-          decoration: InputDecoration(
-              labelText: 'Breed:'
-          ),
+          decoration: InputDecoration(labelText: 'Breed:'),
         ),
         TextField(
           controller: ageController,
           keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-              labelText: 'Age:'
-          ),
+          decoration: InputDecoration(labelText: 'Age:'),
         ),
-        TextField(
-          controller: weightController,
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-              labelText: 'Weight:'
-          ),
-        ),
-        TextButton(onPressed: (){
-          setState(() {
-            print(nameController.text);
-            print(breedController.text);
-            print(ageController.text);
-            print(weightController.text);
-          });
-        }, child: Text("Submit"))
+        TextButton(
+            onPressed: () {
+              setState(() {
+                var dog = Dog(nameController.text, breedController.text,
+                    double.parse(ageController.text));
+
+                widget.dogList.add(dog);
+              });
+
+            },
+            child: Text("Submit")),
+        Column(
+          // We will map each object's model from carList to a Card
+          children: widget.carList.map((car) => CarUI(car)).toList(),
+        )
       ],
     );
   }

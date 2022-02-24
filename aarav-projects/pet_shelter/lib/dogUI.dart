@@ -26,6 +26,7 @@ class DogUI extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            //First child is a column , because it has model and make
             Column(
               children: [
                 Text(dog.Name,
@@ -64,7 +65,7 @@ class DogUI extends StatelessWidget {
               ),
               child: Text(dog.Weight.toString(),style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.deepPurpleAccent,
+                color: Colors.purple,
                 fontSize: 18,
               ),),
             ),

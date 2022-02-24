@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'DogUI.dart';
+import 'dogUI.dart';
 import 'Dog.dart';
 
 
@@ -38,11 +38,15 @@ class _CarFormState extends State<DogForm> {
           keyboardType: TextInputType.number,
           decoration: InputDecoration(labelText: 'Age:'),
         ),
+        TextField(
+          controller: weightController,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(labelText: 'Weight:'),
+        ),
         TextButton(
             onPressed: () {
               setState(() {
-                var dog = Dog(nameController.text, breedController.text,
-                    double.parse(ageController.text));
+                var dog = Dog(Name: nameController.text, Breed: breedController.text, Age: int.parse(ageController.text), Weight: double.parse(weightController.text));
 
                 widget.dogList.add(dog);
               });
@@ -51,7 +55,7 @@ class _CarFormState extends State<DogForm> {
             child: Text("Submit")),
         Column(
           // We will map each object's model from carList to a Card
-          children: widget.carList.map((car) => CarUI(car)).toList(),
+          children: widget.dogList.map((dog) => DogUI(dog)).toList(),
         )
       ],
     );

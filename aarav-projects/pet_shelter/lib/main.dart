@@ -1,5 +1,5 @@
-import 'package:pet_shelter/Dog.dart';
-import 'package:pet_shelter/dogForm.dart';
+import 'Dog.dart';
+import 'dogForm.dart';
 import 'package:flutter/material.dart';
 import 'DogUI.dart';
 void main() {
@@ -31,10 +31,15 @@ class MyApp extends StatelessWidget {
       ),
       body: Column(
         children: [
-          DogForm(),
+          DogForm(dogList: [],),
 
-          Column(
-            children: dogList.map((dog) => DogUI(dog)).toList(),
+          Container(
+            height: 300,
+            child: SingleChildScrollView(
+              child: Column(
+                children: dogList.map((dog) => DogUI(dog)).toList(),
+              ),
+            ),
           ),
         ],
       ),

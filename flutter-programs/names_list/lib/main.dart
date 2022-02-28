@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:names_list/lv_builder.dart';
+import 'lv_builder.dart';
 
 void main() {
   runApp(MaterialApp(

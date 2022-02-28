@@ -2,6 +2,7 @@ import 'Dog.dart';
 import 'dogForm.dart';
 import 'package:flutter/material.dart';
 import 'DogUI.dart';
+import 'lv_builder.dart';
 void main() {
 
   runApp(
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: dogList.map((dog) => DogUI(dog)).toList(),
+                LVBuilder(dogList)
               ),
             ),
           ),
@@ -46,5 +48,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
 
 

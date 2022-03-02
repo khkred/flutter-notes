@@ -25,6 +25,10 @@ class MyApp extends StatelessWidget {
       body: Column(
         children: [DogForm()],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

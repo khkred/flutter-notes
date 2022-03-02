@@ -3,22 +3,11 @@ import 'package:flutter/material.dart';
 import 'dog.dart';
 import 'dog_list.dart';
 
-class DogForm extends StatefulWidget {
-  const DogForm({Key? key}) : super(key: key);
+class DogForm extends StatelessWidget{
 
-  @override
-  _DogFormState createState() => _DogFormState();
-}
+  Function addDogs;
 
-class _DogFormState extends State<DogForm> {
-
-  var dogList = [
-
-    Dog(Name: 'Rover', Breed: 'German Shepherd', Age: 8, Weight: 5),
-    Dog(Name: 'Lassie', Breed: 'German Shepherd', Age: 6, Weight: 8),
-    Dog(Name: 'Chop', Breed: 'Rottweiler', Age: 8, Weight: 10)
-
-  ];
+  DogForm(this.addDogs);
 
   final nameController = TextEditingController();
   final breedController = TextEditingController();
@@ -48,14 +37,9 @@ class _DogFormState extends State<DogForm> {
           decoration: InputDecoration(labelText: 'Weight:'),
         ),
         TextButton(onPressed: () {
-          setState(() {
-            dogList.add(Dog(Name: nameController.text,
-                Breed: breedController.text,
-                Age: int.parse(ageController.text),
-                Weight: double.parse(weightController.text)));
-          });
+            var dog = Dog(Name: nameController.text, Breed: breedController.text, Age: int.parse(ageController.text), Weight: double.parse(weightController.text));
+            addDogs(dog);
         }, child: Text('Submit')),
-        DogWidgetList(dogList),
 
       ],
     );

@@ -18,6 +18,29 @@ class _CarFormState extends State<CarForm> {
 
   final topSpeedController = TextEditingController();
 
+  /**
+   * The following method validates and submits data
+   */
+
+  void submitData(String inputMake, String inputModel, double inputSpeed)
+  {
+    //Check if any of the values are empty or if the speed is negative.
+
+    if(inputMake.isEmpty || inputModel.isEmpty || inputSpeed<=0)
+      {
+        return;
+      }
+    else {
+      //Create a car object with valid values
+      var car = Car(inputMake, inputModel, inputSpeed);
+
+      widget.addCarToTheList(car);
+
+    }
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,10 +60,11 @@ class _CarFormState extends State<CarForm> {
         ),
         TextButton(
             onPressed: () {
-                var car = Car(makeController.text, modelController.text,
-                    double.parse(topSpeedController.text));
 
-                widget.addCarToTheList(car);
+              //Validate and submit data
+
+              submitData(makeController.text, modelController.text, double.parse(topSpeedController.text));
+
 
             },
             child: Text("Submit")),

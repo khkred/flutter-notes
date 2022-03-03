@@ -39,7 +39,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   void addDogs(dog){
-    dogList.add(dog);
+    setState(() {
+      dogList.add(dog);
+    });
+
   }
 
   @override
@@ -50,9 +53,7 @@ class _MyAppState extends State<MyApp> {
         title: Text('Dogs'),
       ),
 
-      body: Column(
-        children: [DogWidgetList(dogList)],
-      ),
+      body: DogWidgetList(dogList),
       floatingActionButton: FloatingActionButton(
         onPressed: () => addNewDog(context),
         child: const Icon(Icons.add),

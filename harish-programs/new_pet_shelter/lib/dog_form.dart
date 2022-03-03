@@ -22,6 +22,19 @@ class _DogFormState extends State<DogForm> {
 
   final weightController = TextEditingController();
 
+  void submitData(String inputName, String inputBreed, int inputAge, double inputWeight){
+
+    if(inputName.isEmpty || inputBreed.isEmpty || inputAge <= 0 || inputWeight <= 0){
+      return;
+    }
+    else{
+      var dog = Dog(Name: inputName, Breed: inputBreed, Age: inputAge, Weight: inputWeight);
+
+      widget.addDogs(dog);
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,8 +58,7 @@ class _DogFormState extends State<DogForm> {
           decoration: InputDecoration(labelText: 'Weight:'),
         ),
         TextButton(onPressed: () {
-            var dog = Dog(Name: nameController.text, Breed: breedController.text, Age: int.parse(ageController.text), Weight: double.parse(weightController.text));
-            widget.addDogs(dog);
+          submitData(nameController.text, breedController.text, int.parse(ageController.text), double.parse(weightController.text));  
         }, child: Text('Submit')),
 
       ],

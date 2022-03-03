@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       appBar: AppBar(
         actions: [IconButton(onPressed: (){}, icon: Icon(Icons.add))],
         title: Text('Dogs'),
-      ),
+      ),  
 
       body: Column(
         children: [DogWidgetList(dogList)],

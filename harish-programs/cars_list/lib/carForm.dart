@@ -22,7 +22,7 @@ class _CarFormState extends State<CarForm> {
    * The following method validates and submits data
    */
 
-  void submitData(String inputMake, String inputModel, double inputSpeed)
+  void submitData(BuildContext context, String inputMake, String inputModel, double inputSpeed)
   {
     //Check if any of the values are empty or if the speed is negative.
 
@@ -35,6 +35,11 @@ class _CarFormState extends State<CarForm> {
       var car = Car(inputMake, inputModel, inputSpeed);
 
       widget.addCarToTheList(car);
+
+      // The following line closes the bottom sheet
+
+      Navigator.of(context).pop();
+
 
     }
 
@@ -63,7 +68,7 @@ class _CarFormState extends State<CarForm> {
 
               //Validate and submit data
 
-              submitData(makeController.text, modelController.text, double.parse(topSpeedController.text));
+              submitData(context,makeController.text, modelController.text, double.parse(topSpeedController.text));
 
 
             },

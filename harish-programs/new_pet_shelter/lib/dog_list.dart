@@ -10,11 +10,8 @@ class DogWidgetList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 400,
-      child: ListView(
-          // We will map each object's model from carList to a Card
-          children: dogList.map((dog) => DogUI(dog)).toList()),
-    );
+    return ListView(
+        // We will map each object's model from carList to a Card
+        children: dogList.map((dog) => DogUI(dog)).toList());
   }
 }

@@ -12,8 +12,13 @@ void main() {
 
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   var dogList = [
     Dog(Name: 'Rover', Breed: 'German Shepherd', Age: 8, Weight: 5),
     Dog(Name: 'Lassie', Breed: 'German Shepherd', Age: 6, Weight: 8),
@@ -43,7 +48,7 @@ class MyApp extends StatelessWidget {
       appBar: AppBar(
         actions: [IconButton(onPressed: (){}, icon: Icon(Icons.add))],
         title: Text('Dogs'),
-      ),  
+      ),
 
       body: Column(
         children: [DogWidgetList(dogList)],

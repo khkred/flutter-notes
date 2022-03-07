@@ -11,14 +11,8 @@ void modalButton(context){
   showModalBottomSheet(
     context: context,
     builder: (_){
-      return Column(
-        children:[
-          TextField(),
-          FloatingActionButton(onPressed: modal = TextField.)
-        ] ,
-      );
-    }
 
+    }
   );
 }
 
@@ -27,7 +21,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Assignment 3")
+      ),
+      body: Column(
+        children: [
+          Text("This is assignment 3"),
+          ElevatedButton(onPressed: modalButton(context),child: ,)
+        ],
+      ),
+    );
     
   }
 }

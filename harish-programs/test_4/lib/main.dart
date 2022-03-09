@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
             print(itemList);
           }, child: Text("Generate List Tiles")),
           ListView(
-            children: [itemList.map(()) => ListTile(title: Text(fileController.text))],
+            children: itemList.map((item) => ListTile(title: Text(fileController.text))).toList(),
           )
     ],
       ),

@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   var fileController = TextEditingController();
   var tilesController = TextEditingController();
   var itemList;
+  var fileList;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,9 @@ class MyApp extends StatelessWidget {
                 int.parse(tilesController.text), (index) => '${fileController.text},${index + 1}');
             print(itemList);
           }, child: Text("Generate List Tiles")),
-          itemList.map(()) => ListTile(Icons.title: Text(fileController.text))
+          ListView(
+            children: [itemList.map(()) => ListTile(title: Text(fileController.text))],
+          )
     ],
       ),
     );

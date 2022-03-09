@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
             height: 155,
             child: ListView(
               children: itemList
-                  .map((item) => ListTile(title: Text(fileController.text)))
+                  .map((item) => ListTile(title: Text(item)))
                   .toList(),
             ),
           )

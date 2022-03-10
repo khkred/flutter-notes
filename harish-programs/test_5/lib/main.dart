@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'form.dart';
+import 'modal_form.dart';
 
 void main(){
   runApp(MaterialApp(
@@ -12,7 +12,7 @@ void modalSheet(context){
     context: context,
     builder: (_){
       return GestureDetector(
-        child: Form(),
+        child: ModalForm(),
         onTap: (){},
       );
     }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Form extends StatefulWidget {
+class ModalForm extends StatefulWidget {
   @override
-  State<Form> createState() => FormState();
+  State<ModalForm> createState() => ModalFormState();
 }
 
-class FormState extends State<Form> {
+class ModalFormState extends State<ModalForm> {
   var fileController = TextEditingController();
 
   var tilesController = TextEditingController();

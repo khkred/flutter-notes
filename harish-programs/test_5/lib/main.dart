@@ -29,8 +29,29 @@ class MyApp extends StatelessWidget {
         title: Text("Test 5"),
       ),
       body: Column(
-        children: [ElevatedButton(onPressed: (){}, child: Text("Test 5"))],
+        children: [ElevatedButton(onPressed: (){modalSheet(context);}, child: Text("Test 5"))],
       ),
     );
   }
 }
+
+class FormModal extends StatelessWidget {
+
+  var tileController = TextEditingController();
+  var tileCountController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+          ListView(
+            children: itemList
+                .map((item) => ListTile(title: Text(item)))
+                .toList(),
+          ),
+      ],
+    );
+  }
+}
+

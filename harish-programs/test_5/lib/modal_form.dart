@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ModalForm extends StatefulWidget {
+
+  Function getListFromModalSheet;
+
+  ModalForm(this.getListFromModalSheet);
   @override
   State<ModalForm> createState() => ModalFormState();
 }
@@ -13,6 +17,8 @@ class ModalFormState extends State<ModalForm> {
   var itemList = ["p1", "p2", "p3", "p4", "p5"];
 
   var fileList;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,27 +36,22 @@ class ModalFormState extends State<ModalForm> {
           TextField(
             decoration: const InputDecoration(labelText: "Tiles"),
             controller: tilesController,
+            keyboardType: TextInputType.number,
           ),
           ElevatedButton(
               onPressed: () {
                 setState(() {
                   itemList = List<String>.generate(
                       int.parse(tilesController.text),
-                          (index) => '${fileController.text},${index + 1}');
-                  print(itemList);
+                          (index) => '${fileController.text} ${index + 1}');
+
+                  widget.getListFromModalSheet(itemList);
                 });
               },
               child: Text("Generate List Tiles")),
-          Container(
-            height: 155,
-            child: ListView(
-              children: itemList
-                  .map((item) => ListTile(title: Text(item)))
-                  .toList(),
-            ),
-          )
         ],
       ),
     );
   }
 }
+

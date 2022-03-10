@@ -1,26 +1,39 @@
 import 'package:flutter/material.dart';
 import 'modal_form.dart';
+import 'our_list.dart';
 
-void main(){
+void main() {
   runApp(MaterialApp(
     home: MyApp(),
   ));
 }
 
-void modalSheet(context){
-  showModalBottomSheet(
-    context: context,
-    builder: (_){
-      return GestureDetector(
-        child: ModalForm(),
-        onTap: (){},
-      );
-    }
-  );
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class _MyAppState extends State<MyApp> {
+  List<String> itemList = [];
+
+  void modalSheet(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) {
+          return GestureDetector(
+            child: ModalForm(getListFromModalSheet),
+            onTap: () {},
+          );
+        });
+  }
+
+  void getListFromModalSheet(List<String> newItemList) {
+
+    setState(() {
+      itemList = newItemList;
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,29 +42,15 @@ class MyApp extends StatelessWidget {
         title: Text("Test 5"),
       ),
       body: Column(
-        children: [ElevatedButton(onPressed: (){modalSheet(context);}, child: Text("Test 5"))],
+        children: [
+          ElevatedButton(
+              onPressed: () {
+                modalSheet(context);
+              },
+              child: Text("Test 5")),
+          OurList(itemList: itemList)
+        ],
       ),
     );
   }
 }
-
-class FormModal extends StatelessWidget {
-
-  var tileController = TextEditingController();
-  var tileCountController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-          ListView(
-            children: itemList
-                .map((item) => ListTile(title: Text(item)))
-                .toList(),
-          ),
-      ],
-    );
-  }
-}
-

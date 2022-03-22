@@ -1,6 +1,6 @@
 # movie_app
 
-Trending Movies , TV Shows
+A new Flutter project.
 
 ## Getting Started
 

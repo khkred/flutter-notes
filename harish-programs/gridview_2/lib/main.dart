@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
 
-        children:images.map((image) => Image.asset(image)).toList(),
+        children:images.map((image) => Image.asset(image)).toList()  ,
       ),
     );
   }

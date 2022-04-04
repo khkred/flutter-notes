@@ -30,10 +30,21 @@ class _MyAppState extends State<MyApp> {
   Future<void> getBookJson() async {
     String response = await BookDownload().getResponseFromApi();
 
+<<<<<<< HEAD
 
     var bookListJson = jsonDecode("bookList");
+=======
+    // Convert response to a JSON Object
 
-    print(bookListJson);
+    var responseJsonObject = jsonDecode(response);
+
+    var jsonBooksArrayList = responseJsonObject["bookList"];
+
+    print(jsonBooksArrayList);
+
+
+>>>>>>> 34c5480f487e398d5773413fed2217095ef21255
+
 
   }
 

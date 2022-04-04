@@ -33,7 +33,6 @@ class _MyAppState extends State<MyApp> {
 <<<<<<< HEAD
 
     var bookListJson = jsonDecode("bookList");
-=======
     // Convert response to a JSON Object
 
     var responseJsonObject = jsonDecode(response);

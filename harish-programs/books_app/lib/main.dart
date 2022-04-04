@@ -25,12 +25,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  //TODO 3: Call a late variable of type String, to store the book name
+
   // Get JSOn OBJECT
 
   Future<void> getBookJson() async {
     String response = await BookDownload().getResponseFromApi();
 
-<<<<<<< HEAD
 
     var bookListJson = jsonDecode("bookList");
     // Convert response to a JSON Object
@@ -39,17 +41,18 @@ class _MyAppState extends State<MyApp> {
 
     var jsonBooksArrayList = responseJsonObject["bookList"];
 
-    print(jsonBooksArrayList);
-
-
->>>>>>> 34c5480f487e398d5773413fed2217095ef21255
+    //TODO 1: Get the first Book Object
+    //TODO 2: Store the name of the book and return it
 
 
   }
 
   @override
   Widget build(BuildContext context) {
-    getBookJson();
-    return Center();
+
+    //TODO 4: Assign the book name from the method to the late variable
+    return Center(
+      //TODO 5: Use a Future Builder to print the book name in a Text Widget
+    );
   }
 }

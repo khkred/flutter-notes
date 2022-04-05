@@ -26,12 +26,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  //Completed 3: Call a late variable of type String, to store the book name
-
+ //Todo(2): Change the late variable datatype to get a Book Object (hint: you need to import book.dart)
   late Future<String> name;
 
   // Get JSOn OBJECT
 
+  //TODO(0): To see how to handle albums: https://docs.flutter.dev/cookbook/networking/fetch-data
+
+  //TODO(1): Instead of returning just the "name", Return the Entire first book object
   Future<String> getBookJson() async {
     String response = await BookDownload().getResponseFromApi();
 
@@ -41,11 +43,9 @@ class _MyAppState extends State<MyApp> {
 
     var jsonBooksArrayList = responseJsonObject["bookList"];
 
-    //Completed 1: Get the first Book Object Completed
 
     var book = jsonBooksArrayList[0];
 
-    //Completed 2: Store the name of the book and return it
     var title = book["name"];
 
     return title;
@@ -54,13 +54,11 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
 
-    //Completed 4: Assign the book name from the method to the late variable
-
     name = getBookJson();
 
     return Center(
 
-      //TODO 5: Use a Future Builder to print the book name in a Text Widget
+      //TODO(3): Use a Future Builder to create a column that has book name, title and the description
 
       child: FutureBuilder<String>(
         future: name,

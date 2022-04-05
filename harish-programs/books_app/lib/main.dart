@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:books_app/model/book.dart';
 import 'package:flutter/material.dart';
 
 import 'book_download.dart';
@@ -26,18 +27,17 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
- //Todo(2): Change the late variable datatype to get a Book Object (hint: you need to import book.dart)
-  late Future<String> name;
+ //Completed (2): Change the late variable datatype to get a Book Object (hint: you need to import book.dart)
+  late Future<Book> name;
 
   // Get JSOn OBJECT
 
-  //TODO(0): To see how to handle albums: https://docs.flutter.dev/cookbook/networking/fetch-data
-
-  //TODO(1): Instead of returning just the "name", Return the Entire first book object
-  Future<String> getBookJson() async {
-    String response = await BookDownload().getResponseFromApi();
+  //Completed (0): To see how to handle albums: https://docs.flutter.dev/cookbook/networking/fetch-data
 
 
+  //Cpmpleted (1): Instead of returning just the "name", Return the Entire first book object
+  Future<Book> getBookJson() async {
+    var response = await BookDownload().getResponseFromApi();
     // Convert response to a JSON Object
     var responseJsonObject = jsonDecode(response);
 
@@ -46,9 +46,12 @@ class _MyAppState extends State<MyApp> {
 
     var book = jsonBooksArrayList[0];
 
-    var title = book["name"];
+    return Book.fromJson(book);
 
-    return title;
+
+
+
+
   }
 
   @override
@@ -58,13 +61,13 @@ class _MyAppState extends State<MyApp> {
 
     return Center(
 
-      //TODO(3): Use a Future Builder to create a column that has book name, title and the description
+      //Completed (3): Use a Future Builder to create a column that has book name, title and the description
 
-      child: FutureBuilder<String>(
+      child: FutureBuilder<Book>(
         future: name,
         builder: (context,snapshot){
           if(snapshot.hasData){
-            return Text(snapshot.data!);
+            return Column(children: [Text(snapshot.data!.name), Text(snapshot.data!.author)],);
           }
           else if(snapshot.hasError){
             return Text("${snapshot.error}");

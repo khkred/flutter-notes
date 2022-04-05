@@ -26,56 +26,59 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  //Completed (2): Change the late variable datatype to get a Book Object (hint: you need to import book.dart)
+  //  late Future<Book> name;
 
- //Completed (2): Change the late variable datatype to get a Book Object (hint: you need to import book.dart)
-  late Future<Book> name;
+  late Future<List<Book>> booksList;
 
   // Get JSOn OBJECT
 
   //Completed (0): To see how to handle albums: https://docs.flutter.dev/cookbook/networking/fetch-data
 
-
   //Cpmpleted (1): Instead of returning just the "name", Return the Entire first book object
-  Future<Book> getBookJson() async {
+  Future<List<Book>> getBookJson() async {
     var response = await BookDownload().getResponseFromApi();
     // Convert response to a JSON Object
     var responseJsonObject = jsonDecode(response);
 
     var jsonBooksArrayList = responseJsonObject["bookList"];
 
+    // var book = jsonBooksArrayList[0];
+    
+    //Convert Json ArrayList to Book Array List
+    
+    List<Book> booksArrayList = [];
+    
+    for(var jsonBook in jsonBooksArrayList) {
+      
+      booksArrayList.add(Book.fromJson(jsonBook));
+    }
+    
 
-    var book = jsonBooksArrayList[0];
-
-    return Book.fromJson(book);
-
-
-
-
-
+    return booksArrayList;
   }
 
   @override
   Widget build(BuildContext context) {
-
-    name = getBookJson();
+    booksList = getBookJson();
 
     return Center(
-
       //Completed (3): Use a Future Builder to create a column that has book name, title and the description
 
-      child: FutureBuilder<Book>(
-        future: name,
-        builder: (context,snapshot){
-          if(snapshot.hasData){
-            return Column(children: [Text(snapshot.data!.name), Text(snapshot.data!.author)],);
-          }
-          else if(snapshot.hasError){
+      child: FutureBuilder<List<Book>>(
+        future: booksList,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Column(
+                children: snapshot.data!.map((book) => Row(
+                      children: [Text(book.name), Text(book.author)],
+                    )).toList());
+          } else if (snapshot.hasError) {
             return Text("${snapshot.error}");
           }
           return const CircularProgressIndicator();
         },
       ),
-
     );
   }
 }

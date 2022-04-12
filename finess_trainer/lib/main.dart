@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'home_page.dart';
+import 'video_info.dart';
+import 'package:get/get.dart';
 
 void main() {
 
@@ -13,7 +15,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fitness Trainer',
       theme: ThemeData(

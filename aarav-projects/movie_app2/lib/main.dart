@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'movie_network.dart';
 import 'model/movie.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MaterialApp(
@@ -17,14 +18,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late Future<Movie> movie;
+  late Future<List<Movie>> movie;
 
-  Future<Movie> getMovie() async {
+  Future<List<Movie>> getMovie() async {
     var response = await Download().getResponseFromApi();
     var responseJsonObject = jsonDecode(response);
-    var title = responseJsonObject["title"];
-
-    return Movie.fromJson(responseJsonObject);
+    var results = responseJsonObject["results"];
+    var movie1 = results[0];
+    var poster = movie1["poster_path"];
+    return results.map<Movie>((json) => Movie.fromJson(json)).toList();
   }
 
   @override
@@ -32,16 +34,16 @@ class _MyAppState extends State<MyApp> {
     movie = getMovie();
 
     return Scaffold(
-      body: FutureBuilder<Movie>(
+      body: FutureBuilder<List<Movie>>(
           future: movie,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return ListView(
-                children: [
-                  Image.network(snapshot.data!.poster),
-                  Text(snapshot.data!.name),
-                  Text(snapshot.data!.overview)
-                ],
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context,index) {
+                  return Image.network(snapshot.data![index].posterUrl());
+                },
               );
             } else if (snapshot.hasError) {
               return Text("${snapshot.error}");

@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 
 class Download{
   Future<String> getResponseFromApi() async{
-    String url = "https://webhook.site/f458a3bd-86f5-4a46-b48b-a523d6faeecf?";
+    String url = "https://api.themoviedb.org/3/movie/popular?api_key=f5bfcf47f66210e0ffe754d19174d7c2&language=en-US&page=1";
 
     var uri_1 = Uri.parse(url);
 

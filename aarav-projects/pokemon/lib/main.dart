@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<List<Pokemon>> getPokemon() async {
     var response = await Download().getResponseFromApi();
-    var responseJsonObject = jsonDecode(response).cast<Map<String,dynamic>>();
+    var responseJsonObject = jsonDecode(response);
 
     List<Pokemon> powerList = [];
     for (var jsonPokemon in responseJsonObject) {

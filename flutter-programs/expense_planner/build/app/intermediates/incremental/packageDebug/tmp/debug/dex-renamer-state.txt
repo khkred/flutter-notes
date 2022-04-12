@@ -1,4 +1,0 @@
-#Sun Feb 27 19:49:24 IST 2022
-base.0=C\:\\Users\\HP_Demo\\flutter-notes\\flutter-programs\\expense_planner\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-renamed.0=classes.dex
-path.0=classes.dex

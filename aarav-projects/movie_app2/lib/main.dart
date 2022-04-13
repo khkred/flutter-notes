@@ -38,12 +38,17 @@ class _MyAppState extends State<MyApp> {
           future: movie,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context,index) {
-                  return Image.network(snapshot.data![index].posterUrl());
-                },
+              return Column(
+                children: [
+                  DropdownButton(items: , onChanged: (){}),
+                  GridView.builder(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context,index) {
+                      return Image.network(snapshot.data![index].posterUrl());
+                    },
+                  ),
+                ],
               );
             } else if (snapshot.hasError) {
               return Text("${snapshot.error}");

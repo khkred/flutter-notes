@@ -21,7 +21,10 @@ class _MyAppState extends State<MyApp> {
 
   var i = 0;
 
-  List<String> movieUrl = ["https://api.themoviedb.org/3/movie/popular?", "https://api.themoviedb.org/3/trending/movie/day?"];
+  List<String> movieUrl = [
+    "https://api.themoviedb.org/3/movie/popular?",
+    "https://api.themoviedb.org/3/trending/movie/day?",
+  ];
 
   Future<List<Movie>> getMovie() async {
     var response = await Download(movieUrl[i]).getResponseFromApi();
@@ -57,12 +60,11 @@ class _MyAppState extends State<MyApp> {
                           style: TextStyle(fontSize: 20),
                         )),
                   ],
-                  onSelected:(int index) {
+              onSelected: (int index) {
                 setState(() {
                   i = index;
                 });
-              }
-          ),
+              }),
         ],
       ),
       body: FutureBuilder<List<Movie>>(

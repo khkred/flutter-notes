@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'movie_network.dart';
 import 'model/movie.dart';
-import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MaterialApp(
@@ -22,7 +21,7 @@ class _MyAppState extends State<MyApp> {
 
   var i = 0;
 
-  List<String> movieUrl = ["https://api.themoviedb.org/3/movie/popular?", "https://api.themoviedb.org/3/movie/trending/all/day?"];
+  List<String> movieUrl = ["https://api.themoviedb.org/3/movie/popular?", "https://api.themoviedb.org/3/trending/movie/day?"];
 
   Future<List<Movie>> getMovie() async {
     var response = await Download(movieUrl[i]).getResponseFromApi();

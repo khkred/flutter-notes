@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'colors.dart';
 
 import 'package:video_player/video_player.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class VideoInfo extends StatefulWidget {
   const VideoInfo({Key? key}) : super(key: key);
 
@@ -204,6 +204,7 @@ class _VideoInfoState extends State<VideoInfo> {
                             children: [
                               IconButton(
                                   onPressed: () {
+                                    Get.back();
                                     setState(() {
                                       debugPrint('Tapped');
                                     });
@@ -316,30 +317,45 @@ class _VideoInfoState extends State<VideoInfo> {
 
 
   var _progress=0.0;
-  _onControllerUpdate() async {
-    if (_disposed) {
+  void _onControllerUpdate()async{
+    if(_disposed){
       return;
     }
-    _onUpdateControllerTime = 0;
+    _onUpdateControllerTime=0;
     final now = DateTime.now().millisecondsSinceEpoch;
+    if(_onUpdateControllerTime>now){
 
-    if (_onUpdateControllerTime > now) {
       return;
-    } else {
-      _onUpdateControllerTime += 500;
     }
+    _onUpdateControllerTime=now+500;
 
     final controller = _controller;
+    if(controller==null){
+      debugPrint("controller is null");
+      return;
+    }
+    if(!controller.value.isInitialized){
+      debugPrint("controller can not be initialized");
+      return;
+    }
 
-    if (controller == null) {
-      debugPrint('controller is null');
-      return;
+    if (_duration == null) {
+      _duration = _controller?.value.duration;
     }
-    if (!controller.value.isInitialized) {
-      debugPrint('Controller cannot be initialized');
-      return;
-    }
+    var duration = _duration;
+    if (duration == null) return;
+
+    var position = await controller.position;
+    _position = position;
     final playing = controller.value.isPlaying;
+    if (playing) {
+      // handle progress indicator
+      if (_disposed) return;
+      setState(() {
+        //60 30 //45/60 = 0.75(0, 1)
+        _progress = position!.inMilliseconds.ceilToDouble() / duration.inMilliseconds.ceilToDouble();
+      });
+    }
     _isPlaying = playing;
   }
 
@@ -391,7 +407,7 @@ class _VideoInfoState extends State<VideoInfo> {
   // For the play , pause and fast forward options
   Widget _controlView(BuildContext context) {
 
-    final noMute = (_controller!.value.volume.toInt()??0)>0;
+    final noMute =(_controller?.value.volume??0)>0;
 
     final duration = _duration?.inSeconds ?? 0; //if isSeconds is null then return 0
     final head = _position?.inSeconds ?? 0;
@@ -400,124 +416,184 @@ class _VideoInfoState extends State<VideoInfo> {
     final secs = convertTwo(remained % 60); //22%7 = 1
 
 
-    return Container(
-      height: 40,
-      margin: const EdgeInsets.only(bottom: 10),
-      width: MediaQuery.of(context).size.width,
-      color: AppColor.gradientSecond,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          InkWell(
-            onTap: (){
-              if(noMute) {
-                _controller!.setVolume(0);
-              }
-              else
-                {
-                  _controller!.setVolume(1.0);
-                }
-              setState(() {
-                
-              });
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 8),
-              child: Container(
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      offset:  Offset(0, 0),
-                      blurRadius: 4.0,
-                      color: Color.fromARGB(50, 0, 0, 0),
-                    ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
 
-                  ],
-                ),
-                child: noMute? const Icon(Icons.volume_up,color: Colors.white,): const Icon(Icons.volume_mute,color: Colors.white,),
-              ),
+      children: [
+        SliderTheme(
+          data: SliderTheme.of(context).copyWith(
+            activeTrackColor: Colors.red[700],
+            inactiveTrackColor: Colors.red[100],
+            trackShape: const RoundedRectSliderTrackShape(),
+            trackHeight: 2.0,
+            thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 12.0),
+            thumbColor: Colors.redAccent,
+            overlayColor: Colors.red.withAlpha(32),
+            overlayShape: const RoundSliderOverlayShape(overlayRadius: 28.0),
+            tickMarkShape: const RoundSliderTickMarkShape(),
+            activeTickMarkColor: Colors.red[700],
+            inactiveTickMarkColor: Colors.red[100],
+            valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
+            valueIndicatorColor: Colors.redAccent,
+            valueIndicatorTextStyle: const TextStyle(
+              color: Colors.white,
             ),
           ),
-          TextButton(
-              onPressed: () async {
-                final index = _isPlayingIndex - 1;
-                if (index >= 0) {
-                  _initializeVideo(index);
-                }
-                else
-                  {
-                    Get.snackbar('Video', "",
+          child: Slider(
+            value: max(0, min(_progress * 100, 100)),
+            min: 0,
+            max: 100,
+            divisions: 100,
+            label:_position?.toString().split(".")[0],
+            onChanged: (value) {
+              setState(() {
+                _progress = value * 0.01;
+              });
+            },
+            onChangeStart: (value) {
+              _controller?.pause();
+            },
+            onChangeEnd: (value) {
+              final duration = _controller?.value.duration;
+              if (duration != null) {
+                var newValue = max(0, min(value, 99)) * 0.01;
+                var millis = (duration.inMilliseconds * newValue).toInt();
+                _controller?.seekTo(Duration(milliseconds: millis));
+                _controller?.play();
+              }
+            },
+          ),
+        ),
+
+        Container(
+          height: 40,
+          margin: const EdgeInsets.only(bottom: 10),
+          width: MediaQuery.of(context).size.width,
+          color: AppColor.gradientSecond,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+
+              InkWell(
+                onTap: (){
+                  if(noMute) {
+                    _controller!.setVolume(0);
+                  }
+                  else
+                    {
+                      _controller!.setVolume(1.0);
+                    }
+                  setState(() {
+
+                  });
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 8),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          offset:  Offset(0, 0),
+                          blurRadius: 4.0,
+                          color: Color.fromARGB(50, 0, 0, 0),
+                        ),
+
+                      ],
+                    ),
+                    child: noMute? const Icon(Icons.volume_up,color: Colors.white,): const Icon(Icons.volume_mute,color: Colors.white,),
+                  ),
+                ),
+              ),
+              TextButton(
+                  onPressed: () async {
+                    final index = _isPlayingIndex - 1;
+                    if (index >= 0) {
+                      _initializeVideo(index);
+                    }
+                    else
+                      {
+                        Get.snackbar('Video', "",
+                            snackPosition: SnackPosition.BOTTOM,
+                            icon: const Icon(Icons.face,
+                              size: 30,
+                              color: Colors.white,),
+                            backgroundColor: AppColor.gradientSecond,
+                            colorText: Colors.white,
+                            messageText: const Text("No More Videos",style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white
+                            ),)
+                        );
+                      }
+                  },
+                  child: const Icon(
+                    Icons.fast_rewind,
+                    size: 36,
+                    color: Colors.white,
+                  )),
+              TextButton(
+                  onPressed: () async {
+                    if (_isPlaying) {
+                      setState(() {
+                        _isPlaying = false;
+                      });
+                      _controller!.pause();
+                    } else {
+                      setState(() {
+                        _isPlaying = true;
+                      });
+                      _controller!.play();
+                    }
+                  },
+                  child: Icon(
+                    _isPlaying ? Icons.pause : Icons.play_arrow,
+                    size: 36,
+                    color: Colors.white,
+                  )),
+              TextButton(
+                  onPressed: () async {
+                    final index = _isPlayingIndex + 1;
+
+                    if(index<=videoInfo.length-1) {
+                      _initializeVideo(index);
+                    }
+                    else
+                      {
+                        Get.snackbar('Video', "",
                         snackPosition: SnackPosition.BOTTOM,
                         icon: const Icon(Icons.face,
-                          size: 30,
-                          color: Colors.white,),
-                        backgroundColor: AppColor.gradientSecond,
-                        colorText: Colors.white,
-                        messageText: const Text("No More Videos",style: TextStyle(
+                        size: 30,
+                        color: Colors.white,),
+                          backgroundColor: AppColor.gradientSecond,
+                          colorText: Colors.white,
+                          messageText: const Text("You have finished all videos, Congrats!!",style: TextStyle(
                             fontSize: 20,
                             color: Colors.white
-                        ),)
-                    );
-                  }
-              },
-              child: const Icon(
-                Icons.fast_rewind,
-                size: 36,
-                color: Colors.white,
-              )),
-          TextButton(
-              onPressed: () async {
-                if (_isPlaying) {
-                  setState(() {
-                    _isPlaying = false;
-                  });
-                  _controller!.pause();
-                } else {
-                  setState(() {
-                    _isPlaying = true;
-                  });
-                  _controller!.play();
-                }
-              },
-              child: Icon(
-                _isPlaying ? Icons.pause : Icons.play_arrow,
-                size: 36,
-                color: Colors.white,
-              )),
-          TextButton(
-              onPressed: () async {
-                final index = _isPlayingIndex + 1;
+                          ),)
+                        );
 
-                if(index<=videoInfo.length-1) {
-                  _initializeVideo(index);
-                }
-                else
-                  {
-                    Get.snackbar('Video', "",
-                    snackPosition: SnackPosition.BOTTOM,
-                    icon: const Icon(Icons.face,
-                    size: 30,
-                    color: Colors.white,),
-                      backgroundColor: AppColor.gradientSecond,
-                      colorText: Colors.white,
-                      messageText: const Text("You have finished all videos, Congrats!!",style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white
-                      ),)
-                    );
+                      }
 
-                  }
-
-              },
-              child: const Icon(
-                Icons.fast_forward,
-                size: 36,
+                  },
+                  child: const Icon(
+                    Icons.fast_forward,
+                    size: 36,
+                    color: Colors.white,
+                  )),
+              Text("$mins:$secs",style: const TextStyle(
                 color: Colors.white,
-              )),
-        ],
-      ),
+                shadows: [
+                  Shadow(offset: Offset(0.0,1.0),
+                  blurRadius: 4.0,
+                  color: Color.fromARGB(150, 0, 0, 0))
+                ]
+              ),)
+            ],
+          ),
+        ),
+      ],
     );
   }
 

@@ -1,20 +1,34 @@
-
-import 'package:flutter/src/widgets/basic.dart';
-
 class Movie {
   String name;
   String overview;
-  String poster;
+  String posterPath;
+  String backdropPath;
+  String releaseDate;
+  double voteAverage;
 
-  Movie({required this.name, required this.overview,required this.poster});
+  Movie(
+      {required this.name,
+      required this.overview,
+      required this.posterPath,
+      required this.backdropPath,
+      required this.releaseDate,
+      required this.voteAverage});
 
-  factory Movie.fromJson(Map<String, dynamic> movie_json) =>
-      Movie(name: movie_json["title"], overview: movie_json["overview"],poster: movie_json["poster_path"]);
+  // Convert the json object to a movie object
 
-  String posterUrl(){
-    String image = "https://image.tmdb.org/t/p/w500" + poster;
+  factory Movie.fromJson(Map<String, dynamic> movieJson) => Movie(
+      name: movieJson["title"],
+      overview: movieJson["overview"],
+      posterPath: movieJson["poster_path"],
+      backdropPath: movieJson["backdrop_path"],
+      releaseDate: movieJson["release_date"],
+      voteAverage: movieJson["vote_average"]);
+
+  String getImageUrl(String path) {
+
+    String image = "https://image.tmdb.org/t/p/w500" + path;
 
     return image;
   }
-}
 
+}

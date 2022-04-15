@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   int i = 0;
 
   List<String> movieUrl = [
+    "https://api.themoviedb.org/3/movie/popular?",
     "https://api.themoviedb.org/3/trending/movie/week?",
   ];
 
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                   ],
               onSelected: (int index) {
                 setState(() {
-                  i = 0;
+                  i = index;
                 });
               }),
         ],
@@ -76,8 +77,12 @@ class _HomePageState extends State<HomePage> {
                     onTap: (){
                       Get.to(MovieDetails(backdropUrl: movie.getImageUrl(movie.backdropPath), movieTitle: movie.name, movieOverView: movie.overview, rating: movie.voteAverage));
                     },
-                      child: Image.network(snapshot.data![index]
-                          .getImageUrl(snapshot.data![index].posterPath)));
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        
+                        child: Image.network(snapshot.data![index]
+                            .getImageUrl(snapshot.data![index].posterPath)),
+                      ));
                 },
               );
             } else if (snapshot.hasError) {

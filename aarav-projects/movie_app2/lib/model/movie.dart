@@ -4,7 +4,7 @@ class Movie {
   String posterPath;
   String backdropPath;
   String releaseDate;
-  double voteAverage;
+  num voteAverage;
 
   Movie(
       {required this.name,

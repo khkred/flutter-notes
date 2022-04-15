@@ -4,7 +4,7 @@ class MovieDetails extends StatelessWidget {
   String backdropUrl;
   String movieTitle;
   String movieOverView;
-  double rating;
+  num rating;
 
   MovieDetails({
     required this.backdropUrl,
@@ -15,6 +15,7 @@ class MovieDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10.0),

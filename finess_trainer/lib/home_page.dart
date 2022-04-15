@@ -35,7 +35,8 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: AppColor.homePageBackground,
       body: Container(
         padding: const EdgeInsets.only(top: 50, left: 30, right: 30),
-        child: Column(
+        child: ListView(
+          shrinkWrap: true,
           children: [
             Row(
               children: [
@@ -295,12 +296,12 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             const SizedBox(height: 10,),
-            Expanded(
-              //Gridview comes inbuilt with some padding, I'd like to remove it, We use a widget called MediaQuery.removePadding
-            child: MediaQuery.removePadding(
+            MediaQuery.removePadding(
               removeTop: true,
               context: context,
               child: GridView.count(crossAxisCount: 2,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 mainAxisSpacing: 25,
                 crossAxisSpacing: 25,
                 children: List.generate(info.length, (index) =>  Container(
@@ -337,7 +338,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),),
               ),
-            ),
             ),
           ],
         ),

@@ -78,10 +78,16 @@ class _HomePageState extends State<HomePage> {
                       Get.to(MovieDetails(backdropUrl: movie.getImageUrl(movie.backdropPath), movieTitle: movie.name, movieOverView: movie.overview, rating: movie.voteAverage));
                     },
                       child: Container(
-                        margin: const EdgeInsets.only(top: 10),
-                        
-                        child: Image.network(snapshot.data![index]
-                            .getImageUrl(snapshot.data![index].posterPath)),
+                        width: 100,
+                        margin: const EdgeInsets.all(10),
+                        decoration:  BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                            image: NetworkImage(movie.getImageUrl(movie.posterPath)),
+                            fit: BoxFit.fill
+                          )
+                        ),
+
                       ));
                 },
               );

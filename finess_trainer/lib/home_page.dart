@@ -84,27 +84,32 @@ class _HomePageState extends State<HomePage> {
                       fontWeight: FontWeight.w700),
                 ),
                 Expanded(child: Container()),
-                Text(
-                  'Details',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: AppColor.homePageDetail,
-                  ),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
                 InkWell(
                   onTap: (){
-
-                    Get.to(() => const VideoInfo());
+                    Get.to(const VideoInfo());
                   },
-                  child: Icon(
-                    Icons.arrow_forward,
-                    size: 20,
-                    color: AppColor.homePageIcons,
+                  child: Row(
+                    children: [
+                      Text(
+                        'Details',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: AppColor.homePageDetail,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Icon(
+                        Icons.arrow_forward,
+                        size: 20,
+                        color: AppColor.homePageIcons,
+                      ),
+
+                    ],
                   ),
-                ),
+                )
+
               ],
             ),
             const SizedBox(

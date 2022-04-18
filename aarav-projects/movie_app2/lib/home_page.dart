@@ -70,7 +70,9 @@ class _HomePageState extends State<HomePage> {
               return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
+
                 itemCount: snapshot.data!.length,
+
                 itemBuilder: (context, index) {
                   var movie = snapshot.data![index];
                   return InkWell(
@@ -81,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                         width: 100,
                         margin: const EdgeInsets.all(10),
                         decoration:  BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
                             image: NetworkImage(movie.getImageUrl(movie.posterPath)),
                             fit: BoxFit.fill

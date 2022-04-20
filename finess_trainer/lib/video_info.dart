@@ -55,6 +55,7 @@ class _VideoInfoState extends State<VideoInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        width: MediaQuery.of(context).size.width,
         decoration: _playArea == false
             ? BoxDecoration(
                 gradient: LinearGradient(
@@ -121,6 +122,7 @@ class _VideoInfoState extends State<VideoInfo> {
                         ),
                         Row(
                           children: [
+                            //68 Min Timer Icon
                             Container(
                               width: 90,
                               height: 30,
@@ -155,9 +157,13 @@ class _VideoInfoState extends State<VideoInfo> {
                             const SizedBox(
                               width: 20,
                             ),
+
+                            /**
+                             * Resistance Band Container
+                             */
                             Container(
-                              width: 250,
                               height: 30,
+                              width: 180,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   gradient: LinearGradient(
@@ -171,7 +177,7 @@ class _VideoInfoState extends State<VideoInfo> {
                                     end: Alignment.topRight,
                                   )),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Icon(
                                     Icons.handyman_outlined,
@@ -181,7 +187,7 @@ class _VideoInfoState extends State<VideoInfo> {
                                     width: 5,
                                   ),
                                   Text(
-                                    'Resistance Band, Kettle Bell',
+                                    'Resistance Band',
                                     style: TextStyle(
                                         color: AppColor.secondPageTitleColor),
                                   ),
@@ -193,7 +199,11 @@ class _VideoInfoState extends State<VideoInfo> {
                       ],
                     ),
                   )
-                : Container(
+                :
+            /**
+             * If Video exists Use the Following Container
+             */
+            Container(
                     child: Column(
                       children: [
                         Container(
@@ -279,6 +289,9 @@ class _VideoInfoState extends State<VideoInfo> {
                       height: 20,
                     ),
                     Expanded(
+                      /**
+                       * Exercises ListView
+                       */
                       child: _listView(),
                     ),
                   ],
@@ -291,6 +304,9 @@ class _VideoInfoState extends State<VideoInfo> {
     );
   }
 
+  /**
+   * Exercises ListView
+   */
   _listView() {
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
@@ -339,9 +355,7 @@ class _VideoInfoState extends State<VideoInfo> {
       return;
     }
 
-    if (_duration == null) {
-      _duration = _controller?.value.duration;
-    }
+    _duration ??= _controller?.value.duration;
     var duration = _duration;
     if (duration == null) return;
 
@@ -597,6 +611,9 @@ class _VideoInfoState extends State<VideoInfo> {
     );
   }
 
+  /**
+   * Exercise Card
+   */
   _buildCard(int index) {
     return Container(
       height: 135,
@@ -663,9 +680,12 @@ class _VideoInfoState extends State<VideoInfo> {
                   ),
                 ),
               ),
+              /**
+               * --------------------- lines
+               */
               Row(
                 children: [
-                  for (int i = 0; i <= 90; i++)
+                  for (int i = 0; i <= 70; i++)
                     i.isEven
                         ? Container(
                             width: 3,

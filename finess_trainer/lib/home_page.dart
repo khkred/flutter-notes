@@ -198,10 +198,15 @@ class _HomePageState extends State<HomePage> {
                                     offset: const Offset(4, 8)),
                               ],
                             ),
-                            child: const Icon(
-                              Icons.play_circle_fill,
-                              color: Colors.white,
-                              size: 60,
+                            child:  IconButton(
+                              icon: const Icon(
+                                Icons.play_circle_fill,
+                                color: Colors.white,
+                                size: 60,
+                              ),
+                              onPressed: (){
+                                Get.to(const VideoInfo());
+                              },
                             ))
                       ],
                     )
@@ -213,7 +218,9 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 5,
             ),
-            //Container for the Girl Running
+            /**
+             * Running Lady Card
+             */
             Container(
               height: 180,
               width: MediaQuery.of(context).size.width,
@@ -309,38 +316,44 @@ class _HomePageState extends State<HomePage> {
                 physics: const NeverScrollableScrollPhysics(),
                 mainAxisSpacing: 25,
                 crossAxisSpacing: 25,
-                children: List.generate(info.length, (index) =>  Container(
-                  width: 200,
-                  height: 170,
-                  padding: const EdgeInsets.only(bottom: 5),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15),
-                    image:  DecorationImage(
-                      image: AssetImage(info[index]['img']),),
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 3,
-                          offset: const Offset(5,5),
-                          color: AppColor.gradientSecond.withOpacity(0.1)
+                children: List.generate(info.length, (index) =>  InkWell(
+                  child: Container(
+                    width: 200,
+                    height: 170,
+                    padding: const EdgeInsets.only(bottom: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                      image:  DecorationImage(
+                        image: AssetImage(info[index]['img']),),
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: 3,
+                            offset: const Offset(5,5),
+                            color: AppColor.gradientSecond.withOpacity(0.1)
+                        ),
+                        BoxShadow(
+                            blurRadius: 3,
+                            offset: const Offset(-5,-5),
+                            color: AppColor.gradientSecond.withOpacity(0.1)
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Text(info[index]['title'],
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: AppColor.homePageDetail,
+                          ),),
                       ),
-                      BoxShadow(
-                          blurRadius: 3,
-                          offset: const Offset(-5,-5),
-                          color: AppColor.gradientSecond.withOpacity(0.1)
-                      ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Text(info[index]['title'],
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: AppColor.homePageDetail,
-                        ),),
                     ),
                   ),
+                  onTap: (){
+                    Get.snackbar(info[index]['title'],"Workout Coming Soon",
+                    snackPosition: SnackPosition.BOTTOM);
+                  },
                 ),),
               ),
             ),

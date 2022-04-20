@@ -63,41 +63,44 @@ class _HomePageState extends State<HomePage> {
               }),
         ],
       ),
-      body: FutureBuilder<List<Movie>>(
-          future: movieList,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
+      body: Container(
+        color: const Color(0xFFfbfcff),
+        child: FutureBuilder<List<Movie>>(
+            future: movieList,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
 
-                itemCount: snapshot.data!.length,
+                  itemCount: snapshot.data!.length,
 
-                itemBuilder: (context, index) {
-                  var movie = snapshot.data![index];
-                  return InkWell(
-                    onTap: (){
-                      Get.to(MovieDetails(backdropUrl: movie.getImageUrl(movie.backdropPath), movieTitle: movie.name, movieOverView: movie.overview, rating: movie.voteAverage));
-                    },
-                      child: Container(
-                        width: 100,
-                        margin: const EdgeInsets.all(10),
-                        decoration:  BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            image: NetworkImage(movie.getImageUrl(movie.posterPath)),
-                            fit: BoxFit.fill
-                          )
-                        ),
+                  itemBuilder: (context, index) {
+                    var movie = snapshot.data![index];
+                    return InkWell(
+                      onTap: (){
+                        Get.to(MovieDetails(backdropUrl: movie.getImageUrl(movie.backdropPath), movieTitle: movie.name, movieOverView: movie.overview, rating: movie.voteAverage));
+                      },
+                        child: Container(
+                          width: 100,
+                          margin: const EdgeInsets.all(10),
+                          decoration:  BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                              image: NetworkImage(movie.getImageUrl(movie.posterPath)),
+                              fit: BoxFit.fill
+                            )
+                          ),
 
-                      ));
-                },
-              );
-            } else if (snapshot.hasError) {
-              return Center(child: Text("${snapshot.error}"));
-            }
-            return const CircularProgressIndicator();
-          }),
+                        ));
+                  },
+                );
+              } else if (snapshot.hasError) {
+                return Center(child: Text("${snapshot.error}"));
+              }
+              return const CircularProgressIndicator();
+            }),
+      ),
     );
   }
 }

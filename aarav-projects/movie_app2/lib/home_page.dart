@@ -36,8 +36,9 @@ class _HomePageState extends State<HomePage> {
     movieList = getMovie();
 
     return Scaffold(
+        extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text("Movies"),
+        backgroundColor: Colors.transparent,
         actions: [
           PopupMenuButton(
               itemBuilder: (context) => [
@@ -64,12 +65,14 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Container(
+        margin: EdgeInsets.only(top: 10),
         color: const Color(0xFFfbfcff),
         child: FutureBuilder<List<Movie>>(
             future: movieList,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return GridView.builder(
+                  padding: const EdgeInsets.only(top: 0),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2),
 
@@ -81,18 +84,7 @@ class _HomePageState extends State<HomePage> {
                       onTap: (){
                         Get.to(MovieDetails(backdropUrl: movie.getImageUrl(movie.backdropPath), movieTitle: movie.name, movieOverView: movie.overview, rating: movie.voteAverage));
                       },
-                        child: Container(
-                          width: 100,
-                          margin: const EdgeInsets.all(10),
-                          decoration:  BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: NetworkImage(movie.getImageUrl(movie.posterPath)),
-                              fit: BoxFit.fill
-                            )
-                          ),
-
-                        ));
+                        child: MovieCard(movie: movie));
                   },
                 );
               } else if (snapshot.hasError) {
@@ -101,6 +93,39 @@ class _HomePageState extends State<HomePage> {
               return const CircularProgressIndicator();
             }),
       ),
+    );
+  }
+}
+
+class MovieCard extends StatelessWidget {
+  const MovieCard({
+    Key? key,
+    required this.movie,
+  }) : super(key: key);
+
+  final Movie movie;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 100,
+      margin: const EdgeInsets.all(10),
+      decoration:  BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.4),
+            blurRadius: 20,
+            offset: Offset(0,0)
+          )
+        ],
+        image: DecorationImage(
+          image: NetworkImage(movie.getImageUrl(movie.posterPath)),
+          fit: BoxFit.fill
+        )
+      ),
+
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:pet_firebase/screens/pet_ui.dart';
 
 import 'screens/add_pet.dart';
 
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: AddPetScreen()
+        body: AddPetScreen.petArray()
     );
   }
 }

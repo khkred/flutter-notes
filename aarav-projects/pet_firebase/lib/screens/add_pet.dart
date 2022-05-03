@@ -13,7 +13,9 @@ class AddPetScreen extends StatefulWidget {
 class _AddPetScreenState extends State<AddPetScreen> {
   DateTime selectedDate = DateTime.now();
 
-  late List<Pet> petList;
+  Function addPets;
+
+  _AddPetScreenState(this.addPets);
 
   String petName = "";
   int petAge = 0;
@@ -123,7 +125,11 @@ class _AddPetScreenState extends State<AddPetScreen> {
                                 weight: petWeight,
                                 breed: petBreed);
                             addedPet.addVaccination(vaccinationDate);
-                            petList = Pet(name: petName, age: petAge, weight: petWeight, breed: petBreed) as List<Pet>;
+
+                            var pet = Pet(name: petName, age: petAge, weight: petWeight, breed: petBreed);
+
+                            widget.addPets(pet)
+
                             addPetToFireStore(addedPet);
                           }
                         },

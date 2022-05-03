@@ -19,13 +19,27 @@ void main() async{
   ));
 }
 
-class MyApp extends StatelessWidget {
+var petList = [];
+
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  void addPets(pet){
+    setState(() {
+      petList.add(pet);
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: AddPetScreen.petArray()
+        body: AddPetScreen.addPets()
     );
   }
 }

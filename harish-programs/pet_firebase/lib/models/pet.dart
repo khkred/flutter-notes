@@ -7,7 +7,7 @@ class Pet {
   final int age;
   final double weight;
   final String breed;
-  final List<DateTime> vaccinationDates = [];
+  final List<String> vaccinationDates = [];
 
 
   Pet({
@@ -17,7 +17,7 @@ class Pet {
     required this.breed,
 });
 
-  void addVaccination(DateTime vaccinationDate) {
+  void addVaccination(String vaccinationDate) {
     vaccinationDates.add(vaccinationDate);
   }
 }

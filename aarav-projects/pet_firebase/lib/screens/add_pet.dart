@@ -7,9 +7,7 @@ class AddPetScreen extends StatefulWidget {
   State<AddPetScreen> createState() => _AddPetScreenState();
 }
 
-
 class _AddPetScreenState extends State<AddPetScreen> {
-
   DateTime selectedDate = DateTime.now();
 
   String petName = "";
@@ -17,14 +15,13 @@ class _AddPetScreenState extends State<AddPetScreen> {
   double petWeight = 0;
   String petBreed = "";
 
-
-
   _selectDate(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(2010),
-      lastDate: DateTime(2025),);
+      lastDate: DateTime(2025),
+    );
     if (selected != null && selected != selectedDate)
       setState(() {
         selectedDate = selected;
@@ -41,7 +38,7 @@ class _AddPetScreenState extends State<AddPetScreen> {
             children: [
               //Name
               TextFormField(
-                onChanged: (name){
+                onChanged: (name) {
                   setState(() {
                     petName = name;
                   });
@@ -49,7 +46,7 @@ class _AddPetScreenState extends State<AddPetScreen> {
               ),
               //Age
               TextFormField(
-                onChanged: (age){
+                onChanged: (age) {
                   setState(() {
                     petAge = int.parse(age);
                   });
@@ -57,7 +54,7 @@ class _AddPetScreenState extends State<AddPetScreen> {
               ),
               //Weight
               TextFormField(
-                onChanged: (weight){
+                onChanged: (weight) {
                   setState(() {
                     petWeight = double.parse(weight);
                   });
@@ -65,7 +62,7 @@ class _AddPetScreenState extends State<AddPetScreen> {
               ),
               //Breed
               TextFormField(
-                onChanged: (breed){
+                onChanged: (breed) {
                   setState(() {
                     petBreed = breed;
                   });
@@ -78,18 +75,19 @@ class _AddPetScreenState extends State<AddPetScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text("Pick Date"),
-                    ElevatedButton(onPressed:(){
-
-                      _selectDate(context);
-                    }, child: Text("Date Picker"))
+                    ElevatedButton(
+                        onPressed: () {
+                          _selectDate(context);
+                        },
+                        child: Text("Date Picker"))
                   ],
                 ),
               ),
 
-
               Container(
                   margin: EdgeInsets.only(top: 90),
-                  child: ElevatedButton(onPressed: (){}, child: Text("Upload Pet")))
+                  child: ElevatedButton(
+                      onPressed: () {}, child: Text("Upload Pet")))
             ],
           ),
         ),

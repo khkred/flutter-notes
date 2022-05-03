@@ -15,7 +15,7 @@ class _AddPetScreenState extends State<AddPetScreen> {
   String petName = "";
   int petAge = 0;
   double petWeight = 0;
-  String breed = "";
+  String petBreed = "";
 
 
 
@@ -48,11 +48,29 @@ class _AddPetScreenState extends State<AddPetScreen> {
                 },
               ),
               //Age
-              TextFormField(),
+              TextFormField(
+                onChanged: (age){
+                  setState(() {
+                    petAge = int.parse(age);
+                  });
+                },
+              ),
               //Weight
-              TextFormField(),
+              TextFormField(
+                onChanged: (weight){
+                  setState(() {
+                    petWeight = double.parse(weight);
+                  });
+                },
+              ),
               //Breed
-              TextFormField(),
+              TextFormField(
+                onChanged: (breed){
+                  setState(() {
+                    petBreed = breed;
+                  });
+                },
+              ),
               //Vaccination we'll use a date Picker
               Container(
                 margin: EdgeInsets.all(10),
@@ -68,7 +86,7 @@ class _AddPetScreenState extends State<AddPetScreen> {
                 ),
               ),
 
-              
+
               Container(
                   margin: EdgeInsets.only(top: 90),
                   child: ElevatedButton(onPressed: (){}, child: Text("Upload Pet")))

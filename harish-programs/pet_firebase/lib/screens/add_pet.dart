@@ -12,6 +12,11 @@ class _AddPetScreenState extends State<AddPetScreen> {
 
   DateTime selectedDate = DateTime.now();
 
+  String petName = "";
+  int petAge = 0;
+  double petWeight = 0;
+  String breed = "";
+
 
 
   _selectDate(BuildContext context) async {
@@ -35,7 +40,13 @@ class _AddPetScreenState extends State<AddPetScreen> {
           child: Column(
             children: [
               //Name
-              TextFormField(),
+              TextFormField(
+                onChanged: (name){
+                  setState(() {
+                    petName = name;
+                  });
+                },
+              ),
               //Age
               TextFormField(),
               //Weight

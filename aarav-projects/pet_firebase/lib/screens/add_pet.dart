@@ -38,6 +38,9 @@ class _AddPetScreenState extends State<AddPetScreen> {
             children: [
               //Name
               TextFormField(
+                decoration: InputDecoration(
+                  hintText: "Pet's Name"
+                ),
                 onChanged: (name) {
                   setState(() {
                     petName = name;
@@ -46,6 +49,10 @@ class _AddPetScreenState extends State<AddPetScreen> {
               ),
               //Age
               TextFormField(
+                decoration: InputDecoration(
+                  hintText: "Pet's Age"
+                ),
+                keyboardType: TextInputType.number,
                 onChanged: (age) {
                   setState(() {
                     petAge = int.parse(age);
@@ -54,6 +61,10 @@ class _AddPetScreenState extends State<AddPetScreen> {
               ),
               //Weight
               TextFormField(
+                decoration: InputDecoration(
+                  hintText: "Pet's Weight"
+                ),
+                keyboardType: TextInputType.number,
                 onChanged: (weight) {
                   setState(() {
                     petWeight = double.parse(weight);
@@ -62,6 +73,9 @@ class _AddPetScreenState extends State<AddPetScreen> {
               ),
               //Breed
               TextFormField(
+                decoration: InputDecoration(
+                  hintText: "Pet's Breed"
+                ),
                 onChanged: (breed) {
                   setState(() {
                     petBreed = breed;

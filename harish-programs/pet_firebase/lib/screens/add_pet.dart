@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_firebase/models/pet.dart';
 
 class AddPetScreen extends StatefulWidget {
   const AddPetScreen({Key? key}) : super(key: key);
@@ -7,28 +9,28 @@ class AddPetScreen extends StatefulWidget {
   State<AddPetScreen> createState() => _AddPetScreenState();
 }
 
-
 class _AddPetScreenState extends State<AddPetScreen> {
-
   DateTime selectedDate = DateTime.now();
 
   String petName = "";
   int petAge = 0;
   double petWeight = 0;
   String petBreed = "";
-
-
+  String vaccinationDate = "";
 
   _selectDate(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(2010),
-      lastDate: DateTime(2025),);
-    if (selected != null && selected != selectedDate)
+      lastDate: DateTime(2025),
+    );
+    if (selected != null && selected != selectedDate) {
       setState(() {
         selectedDate = selected;
+
       });
+    }
   }
 
   @override
@@ -41,7 +43,10 @@ class _AddPetScreenState extends State<AddPetScreen> {
             children: [
               //Name
               TextFormField(
-                onChanged: (name){
+                decoration: InputDecoration(
+                    hintText: "Pet's Name"
+                ),
+                onChanged: (name) {
                   setState(() {
                     petName = name;
                   });
@@ -49,7 +54,11 @@ class _AddPetScreenState extends State<AddPetScreen> {
               ),
               //Age
               TextFormField(
-                onChanged: (age){
+                decoration: InputDecoration(
+                    hintText: "Pet's Age"
+                ),
+                keyboardType: TextInputType.number,
+                onChanged: (age) {
                   setState(() {
                     petAge = int.parse(age);
                   });
@@ -57,7 +66,11 @@ class _AddPetScreenState extends State<AddPetScreen> {
               ),
               //Weight
               TextFormField(
-                onChanged: (weight){
+                decoration: InputDecoration(
+                    hintText: "Pet's Weight"
+                ),
+                keyboardType: TextInputType.number,
+                onChanged: (weight) {
                   setState(() {
                     petWeight = double.parse(weight);
                   });
@@ -65,7 +78,10 @@ class _AddPetScreenState extends State<AddPetScreen> {
               ),
               //Breed
               TextFormField(
-                onChanged: (breed){
+                decoration: InputDecoration(
+                    hintText: "Pet's Breed"
+                ),
+                onChanged: (breed) {
                   setState(() {
                     petBreed = breed;
                   });
@@ -78,22 +94,49 @@ class _AddPetScreenState extends State<AddPetScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text("Pick Date"),
-                    ElevatedButton(onPressed:(){
-
-                      _selectDate(context);
-                    }, child: Text("Date Picker"))
+                    ElevatedButton(
+                        onPressed: () {
+                          _selectDate(context);
+                        },
+                        child: Text("Date Picker"))
                   ],
                 ),
               ),
 
-
               Container(
-                  margin: EdgeInsets.only(top: 90),
-                  child: ElevatedButton(onPressed: (){}, child: Text("Upload Pet")))
+                  margin: const EdgeInsets.only(top: 90),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        if(petName.isEmpty || petAge == 0 || petWeight == 0 || petBreed.isEmpty) {
+                          const snackBar =   SnackBar(
+                            content: Text("One of these fields is empty"),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        } else {
+                          vaccinationDate = "${selectedDate.day}-${selectedDate.month}-${selectedDate.year}";
+                          Pet addedPet =  Pet(name: petName, age: petAge, weight:petWeight, breed: petBreed);
+                          addedPet.addVaccination(vaccinationDate);
+
+                          addPetToFireStore(addedPet);
+
+                        }
+
+                      }, child: Text("Upload Pet")))
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<DocumentReference> addPetToFireStore (Pet addedPet) {
+
+    return FirebaseFirestore.instance.collection('petsDetails').add(<String,dynamic>{
+      "petName" : addedPet.name,
+      "petAge" : addedPet.age,
+      "petWeight" : addedPet.weight,
+      "petBreed" : addedPet.breed,
+      "vaccination": addedPet.vaccinationDates
+    });
   }
 }

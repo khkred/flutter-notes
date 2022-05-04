@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:pet_firebase/screens/list_pets.dart';
 import 'package:pet_firebase/screens/pet_ui.dart';
 
+import 'models/pet.dart';
 import 'screens/add_pet.dart';
 
-
-void main() async{
-
+void main() async {
   //Ensure that all the widgets are binding before running the firebase app
   WidgetsFlutterBinding.ensureInitialized();
 
   //Getting Firebase Instance in our app
   await Firebase.initializeApp();
 
-  runApp( MaterialApp(
+  runApp(MaterialApp(
     home: MyApp(),
     theme: ThemeData.dark(),
   ));
 }
 
-var petList = [];
+List<Pet> petList = [];
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -29,17 +29,27 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  void addPets(pet){
+  void addPets(pet) {
     setState(() {
       petList.add(pet);
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: AddPetScreen.addPets()
+      body: ListPets(petList),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddPetScreen(addPets)),
+          );
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
+
+// Within the `FirstRoute` widget

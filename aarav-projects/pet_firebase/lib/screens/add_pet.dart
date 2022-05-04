@@ -4,7 +4,10 @@ import 'package:pet_firebase/models/pet.dart';
 import 'package:pet_firebase/screens/pet_ui.dart';
 
 class AddPetScreen extends StatefulWidget {
-  const AddPetScreen({Key? key}) : super(key: key);
+
+  Function addPets;
+
+  AddPetScreen(this.addPets);
 
   @override
   State<AddPetScreen> createState() => _AddPetScreenState();
@@ -12,10 +15,6 @@ class AddPetScreen extends StatefulWidget {
 
 class _AddPetScreenState extends State<AddPetScreen> {
   DateTime selectedDate = DateTime.now();
-
-  Function addPets;
-
-  _AddPetScreenState(this.addPets);
 
   String petName = "";
   int petAge = 0;
@@ -128,9 +127,10 @@ class _AddPetScreenState extends State<AddPetScreen> {
 
                             var pet = Pet(name: petName, age: petAge, weight: petWeight, breed: petBreed);
 
-                            widget.addPets(pet)
+                            widget.addPets(pet);
 
                             addPetToFireStore(addedPet);
+                            Navigator.pop(context);
                           }
                         },
                         child: Text("Upload Pet")))
@@ -142,9 +142,6 @@ class _AddPetScreenState extends State<AddPetScreen> {
     );
   }
 
-  List<Pet> petArray(){
-    return petList;
-  }
 
   Future<DocumentReference> addPetToFireStore(Pet addedPet) {
     return FirebaseFirestore.instance

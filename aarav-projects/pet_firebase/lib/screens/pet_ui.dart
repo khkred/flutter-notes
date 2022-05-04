@@ -15,10 +15,14 @@ class _PetUiState extends State<PetUi> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        Image.asset("assets/dogs.jpg"),
-        Text(widget.singlePet.name),
-      ],
+        children: [
+        Container(height: 200, width: 200,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(
+            100)),
+        child: Image.asset("assets/dogs.jpg")),
+    Text(widget.singlePet.name),
+    ]
+    ,
     );
   }
 }

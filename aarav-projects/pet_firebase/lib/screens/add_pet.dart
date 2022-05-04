@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_firebase/models/pet.dart';
-import 'package:pet_firebase/screens/pet_ui.dart';
 
 class AddPetScreen extends StatefulWidget {
 

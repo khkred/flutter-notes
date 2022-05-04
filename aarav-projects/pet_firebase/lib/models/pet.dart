@@ -7,8 +7,7 @@ class Pet {
   final int age;
   final double weight;
   final String breed;
-  final List<String> vaccinationDates = [];
-
+  List<String> vaccinationDates = [];
 
   Pet({
     required this.name,
@@ -20,4 +19,14 @@ class Pet {
   void addVaccination(String vaccinationDate) {
     vaccinationDates.add(vaccinationDate);
   }
+
+  factory Pet.fromJson(Map<String, dynamic> petJson) => Pet(
+        name: petJson["petName"],
+        age: petJson["petAge"],
+        weight: petJson["petWeight"],
+        breed: petJson["petBreed"],
+      );
+
+  List<String> getVaccinationDate(Map<String, dynamic> petJson) =>
+      petJson["vaccination"];
 }

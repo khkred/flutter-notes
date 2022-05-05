@@ -1,8 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:pet_firebase/screens/list_pets.dart';
 import 'package:pet_firebase/screens/pet_ui.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'models/pet.dart';
 import 'screens/add_pet.dart';
 
@@ -22,7 +24,19 @@ void main() async {
 List<Pet> petList = [];
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+  Future<void> addUser(){
+    return 
+        .add({
+      'full_name':
+      'company':
+      'age':
+    })
+        .then((value) => print("Pet Added"))
+        .catchError((error) => print("Failed to add pet: $error"));
+  }
 
   @override
   State<MyApp> createState() => _MyAppState();

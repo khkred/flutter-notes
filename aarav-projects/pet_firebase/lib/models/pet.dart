@@ -20,7 +20,7 @@ class Pet {
     vaccinationDates.add(vaccinationDate);
   }
 
-  factory Pet.fromJson(Map<String, dynamic> petJson) => Pet(
+  factory Pet.fromJson(Map<String, dynamic> petJson, {petName}) => Pet(
         name: petJson["petName"],
         age: petJson["petAge"],
         weight: petJson["petWeight"],

@@ -6,22 +6,31 @@ class ListPets extends StatefulWidget {
 
   List<Pet> petList;
 
-  ListPets(this.petList);
+  String users;
+
+  ListPets(this.petList,this.users);
 
   @override
   State<ListPets> createState() => _ListPetsState();
 }
 
+void listPet(){
+}
+
 class _ListPetsState extends State<ListPets> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children:
-          widget.petList.map((e) => PetUi(e)).toList()
-        ,
-      ),
+    return Column(
+      children: [
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children:
+              widget.petList.map((e) => PetUi(e)).toList()
+            ,
+          ),
+        ),
+      ],
     );
   }
 }

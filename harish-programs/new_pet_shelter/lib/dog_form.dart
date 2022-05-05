@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:sqflite/sqflite.dart';
 import 'dog.dart';
-import 'dog_list.dart';
+
+import 'dart:async';
 
 class DogForm extends StatefulWidget{
 
@@ -14,6 +15,8 @@ class DogForm extends StatefulWidget{
 }
 
 class _DogFormState extends State<DogForm> {
+
+
   final nameController = TextEditingController();
 
   final breedController = TextEditingController();
@@ -28,7 +31,7 @@ class _DogFormState extends State<DogForm> {
       return;
     }
     else{
-      var dog = Dog(Name: inputName, Breed: inputBreed, Age: inputAge, Weight: inputWeight);
+      var dog = Dog(name: inputName, breed: inputBreed, age: inputAge, weight: inputWeight);
 
       widget.addDogs(dog);
     }

@@ -30,12 +30,12 @@ class DogUI extends StatelessWidget {
             //First child is a column , because it has model and make
             Column(
               children: [
-                Text(dog.Name,
+                Text(dog.name,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16
                   ),),
-                Text(dog.Breed,
+                Text(dog.breed,
                   style: TextStyle(
                       color: Colors.grey
                   ),)
@@ -50,7 +50,7 @@ class DogUI extends StatelessWidget {
                       color: Colors.purple
                   )
               ),
-              child: Text(dog.Age.toString(),style: TextStyle(
+              child: Text(dog.age.toString(),style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.purple,
                 fontSize: 18,
@@ -64,7 +64,7 @@ class DogUI extends StatelessWidget {
                       color: Colors.purple
                   )
               ),
-              child: Text(dog.Weight.toString(),style: TextStyle(
+              child: Text(dog.weight.toString(),style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.purple,
                 fontSize: 18,

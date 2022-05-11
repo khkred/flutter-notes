@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:protagonists/firebase_options.dart';
 import 'package:protagonists/models/character.dart';
 import 'package:protagonists/screens/add_character.dart';
 import 'package:protagonists/screens/list_characters.dart';
@@ -10,7 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   //Getting Firebase Instance in our app
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(MaterialApp(
     home: MyApp(),

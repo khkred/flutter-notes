@@ -1,0 +1,26 @@
+//Get firebase core functionalities
+1. flutter pub add firebase_core
+
+
+//Get firestore functionalities in order to push data into cloud firestore
+2. flutter pub add cloud_firestore
+
+//Configure our flutter app to work with a firebase project
+3.flutterfire configure
+
+-------------------- Android build errors
+//Change build.gradle min version to 19 in app/build.gradle
+
+//enable multidex
+multiDexEnabled true
+
+in dependencies add the following line:
+implementation 'com.android.support:multidex:1.0.3'
+
+----------------END Android build errors -----------------------------------
+
+---------- iOS build erros
+//Go to podfile in ios folder and uncomment the second line and set the global version as 10.0
+
+//Running pod install takes forever
+

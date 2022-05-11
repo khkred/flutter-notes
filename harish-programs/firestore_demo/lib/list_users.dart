@@ -28,7 +28,7 @@ class ListUsers extends StatelessWidget {
 
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-          return Text("Full Name: ${data['full_name']} Company: ${data['company']}");
+          return Text("Name: ${data['name']} Company: ${data['company']}");
         }
 
         return Text("loading");

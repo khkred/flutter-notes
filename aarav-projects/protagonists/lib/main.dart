@@ -1,12 +1,9 @@
 import 'dart:ffi';
-
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:pet_firebase/screens/list_pets.dart';
-import 'package:pet_firebase/screens/pet_ui.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'models/pet.dart';
-import 'screens/add_pet.dart';
+import 'package:flutter/material.dart';
+import 'package:protagonists/models/character.dart';
+import 'package:protagonists/screens/add_character.dart';
+import 'package:protagonists/screens/list_characters.dart';
 
 void main() async {
   //Ensure that all the widgets are binding before running the firebase app
@@ -21,7 +18,7 @@ void main() async {
   ));
 }
 
-List<Pet> petList = [];
+List<Character> listCharacter = [];
 
 class MyApp extends StatefulWidget {
 
@@ -30,21 +27,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  void addPets(pet) {
+  void addCharacter(character) {
     setState(() {
-      petList.add(pet);
+      listCharacter.add(character);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListPets(),
+      body: CharacterList(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AddPetScreen(addPets)),
+            MaterialPageRoute(builder: (context) => AddCharacterScreen(addCharacter)),
           );
         },
         child: Icon(Icons.add),

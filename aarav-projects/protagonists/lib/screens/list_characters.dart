@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:pet_firebase/models/pet.dart';
-import 'package:pet_firebase/screens/pet_ui.dart';
+import 'character_ui.dart';
+import 'package:characters/characters.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ListPets extends StatefulWidget {
+class CharacterList extends StatefulWidget {
 
   @override
-  State<ListPets> createState() => _ListPetsState();
+  State<CharacterList> createState() => _CharacterListState();
 }
 
-void listPet() {}
 
 final Stream<QuerySnapshot> _usersStream =
-    FirebaseFirestore.instance.collection('petsDetails').snapshots();
+FirebaseFirestore.instance.collection('characterDetails').snapshots();
 
 @override
-class _ListPetsState extends State<ListPets> {
+class _CharacterListState extends State<CharacterList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -33,8 +32,8 @@ class _ListPetsState extends State<ListPets> {
           body: ListView(
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map<String, dynamic> data =
-                  document.data()! as Map<String, dynamic>;
-              return PetUi(petName: data["petName"], age: data["petAge"],);
+              document.data()! as Map<String, dynamic>;
+              return CharacterUi(characterName: data["characterName"], characterAge: data["characterAge"],);
             }).toList(),
           ),
         );

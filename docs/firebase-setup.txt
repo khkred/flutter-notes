@@ -19,8 +19,4 @@ implementation 'com.android.support:multidex:1.0.3'
 
 ----------------END Android build errors -----------------------------------
 
----------- iOS build erros
-//Go to podfile in ios folder and uncomment the second line and set the global version as 10.0
-
-//Running pod install takes forever
 

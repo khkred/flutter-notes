@@ -16,7 +16,7 @@ class _SignInState extends State<SignIn> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  signupUser(String email, String password) async{
+  signInUser(String email, String password) async{
     var credentials = (await _auth.createUserWithEmailAndPassword(email: email, password: password));
 
 
@@ -59,8 +59,7 @@ class _SignInState extends State<SignIn> {
           }
           else {
             setState(() {
-              signupUser(_email, _password);
-
+              signInUser(_email, _password);
             });
           }
         }, child: Text("Sign In"))

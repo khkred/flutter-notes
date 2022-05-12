@@ -9,18 +9,15 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-
   String _email = "";
   String _password = "";
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  signupUser(String email, String password) async{
-    var credentials = (await _auth.createUserWithEmailAndPassword(email: email, password: password));
-
+  signupUser(String email, String password) async {
+    var credentials = (await _auth.createUserWithEmailAndPassword(
+        email: email, password: password));
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +33,6 @@ class _SignUpState extends State<SignUp> {
               });
             },
           ),
-
           TextFormField(
             decoration: InputDecoration(hintText: "Password"),
             obscureText: true,
@@ -48,25 +44,22 @@ class _SignUpState extends State<SignUp> {
               });
             },
           ),
-
-          ElevatedButton(onPressed: (){
-            if(_email.isEmpty || _password.isEmpty) {
-              const snackBar = SnackBar(
-                content: Text("One of these fields is empty"),
-              );
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(snackBar);
-            }
-            else {
-              setState(() {
-                signupUser(_email, _password);
-
-              });
-            }
-          }, child: Text("Sign Up"))
+          ElevatedButton(
+              onPressed: () {
+                if (_email.isEmpty || _password.isEmpty) {
+                  const snackBar = SnackBar(
+                    content: Text("One of these fields is empty"),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                } else {
+                  setState(() {
+                    signupUser(_email, _password);
+                  });
+                }
+              },
+              child: Text("Sign Up"))
         ],
       ),
     );
   }
-
 }

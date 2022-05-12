@@ -1,0 +1,8 @@
+//Add plugin for Firebase authentication
+
+flutter pub add firebase_auth
+
+//Enable user authentication in your firebase project in console.firebase.com
+
+In this case we have enabled email/password.
+

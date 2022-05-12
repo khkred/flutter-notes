@@ -20,6 +20,7 @@ class _SignInState extends State<SignIn> {
     var credentials = (await _auth.createUserWithEmailAndPassword(email: email, password: password));
 
 
+
   }
 
 

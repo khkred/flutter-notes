@@ -4,11 +4,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
+  //Todo: Add an email parameter and a constructor
+
   @override
   State<SignUp> createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
+
+  //TODO: Call the email parameter, remove _email and emailEditingController
+  //TODO: Remove TextForm Field for email and replace it with a list tile.
+
+
   String _email = "";
   String _password = "";
 

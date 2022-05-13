@@ -3,16 +3,26 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 
 class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
 
+  String email;
+
+  SignIn(this.email);
   @override
   State<SignIn> createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
 
-  String _email = "";
   String _password = "";
+
+  final passwordController = TextEditingController();
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    passwordController.dispose();
+    super.dispose();
+  }
+
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -20,6 +30,7 @@ class _SignInState extends State<SignIn> {
   signInUser(String email, String password) async{
     User? user;
 
+    
     try{
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
@@ -27,6 +38,17 @@ class _SignInState extends State<SignIn> {
       );
       user = userCredential.user;
     var bar = SnackBar(content: Text("${user?.email} is signed in"));
+
+      /**
+       * Checking fetchSignInMethodsForEmail
+       */
+      var listOfMethods = await _auth.fetchSignInMethodsForEmail(email);
+
+      for(var signIn in listOfMethods) {
+        print("Harish: "+signIn);
+      }
+
+
     ScaffoldMessenger.of(context).showSnackBar(bar);
     } on FirebaseAuthException catch(e){
       if(e.code == 'user-not-found'){
@@ -49,13 +71,9 @@ class _SignInState extends State<SignIn> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextFormField(
-            decoration: InputDecoration(hintText: "Email"),
-            onChanged: (name) {
-              setState(() {
-                _email = name;
-              });
-            },
+
+          ListTile(
+            title: Text(widget.email),
           ),
 
           TextFormField(
@@ -63,15 +81,15 @@ class _SignInState extends State<SignIn> {
             obscureText: true,
             autocorrect: false,
             enableSuggestions: false,
-            onChanged: (name) {
-              setState(() {
-                _password = name;
-              });
-            },
+            controller: passwordController,
           ),
 
           ElevatedButton(onPressed: (){
-            if(_email.isEmpty || _password.isEmpty) {
+
+            setState(() {
+              _password = passwordController.text;
+            });
+            if(widget.email.isEmpty || _password.isEmpty) {
               const snackBar = SnackBar(
                 content: Text("One of these fields is empty"),
               );
@@ -80,7 +98,7 @@ class _SignInState extends State<SignIn> {
             }
             else {
               setState(() {
-                signInUser(_email, _password);
+                signInUser(widget.email, _password);
               });
             }
           }, child: Text("Sign In"))

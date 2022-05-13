@@ -1,3 +1,4 @@
+import 'package:car_firebase/screens/dynamic_user_validation.dart';
 import 'package:car_firebase/screens/sign_in.dart';
 import 'package:car_firebase/screens/sign_up.dart';
 import 'package:flutter/material.dart';
@@ -20,28 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const SignUp()),
-                  );
-                },
-                child: const Text("Sign up")),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const SignIn()));
-                },
-                child: const Text("Sign in"))
-          ],
-        ),
-      ),
+      body: DynamicUserValidation(),
     );
   }
 }

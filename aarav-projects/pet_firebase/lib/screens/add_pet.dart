@@ -89,7 +89,7 @@ class _AddPetScreenState extends State<AddPetScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text("Pick Date"),
+                      Text("Last Vaccination Date"),
                       ElevatedButton(
                           onPressed: () {
                             _selectDate(context);

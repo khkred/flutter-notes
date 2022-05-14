@@ -1,3 +1,4 @@
+import 'package:car_firebase/screens/phone_verification.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -39,11 +40,15 @@ class _SignInState extends State<SignIn> {
       user = userCredential.user;
     var bar = SnackBar(content: Text("${user?.email} is signed in"));
 
-      /**
-       * Checking fetchSignInMethodsForEmail
-       */
-
     ScaffoldMessenger.of(context).showSnackBar(bar);
+
+      /**
+       * Go to Phone Verification
+       */
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) =>   PhoneVerification(_auth)),
+      );
     } on FirebaseAuthException catch(e){
       if(e.code == 'user-not-found'){
         const snackBar = SnackBar(content: Text("User not found"));

@@ -1,3 +1,4 @@
+import 'package:car_firebase/screens/phone_verification.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -30,8 +31,12 @@ class _SignUpState extends State<SignUp> {
       user = userCredential.user;
 
       var bar = SnackBar(content: Text("${user?.email} has signed up"));
-
       ScaffoldMessenger.of(context).showSnackBar(bar);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) =>   PhoneVerification(_auth)),
+    );
   }
 
   @override

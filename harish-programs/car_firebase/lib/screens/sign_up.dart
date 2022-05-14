@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
 
-  //Todo: Add an email parameter and a constructor
+  //Completed: Add an email parameter and a constructor
+
+  String email;
+
+  SignUp(this.email);
 
   @override
   State<SignUp> createState() => _SignUpState();
@@ -16,7 +19,6 @@ class _SignUpState extends State<SignUp> {
   //TODO: Remove TextForm Field for email and replace it with a list tile.
 
 
-  String _email = "";
   String _password = "";
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -32,13 +34,8 @@ class _SignUpState extends State<SignUp> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextFormField(
-            decoration: InputDecoration(hintText: "Email"),
-            onChanged: (name) {
-              setState(() {
-                _email = name;
-              });
-            },
+          ListTile(
+            title: Text(),
           ),
           TextFormField(
             decoration: InputDecoration(hintText: "Password"),

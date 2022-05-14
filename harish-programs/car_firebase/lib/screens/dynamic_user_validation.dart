@@ -1,3 +1,5 @@
+import 'package:car_firebase/screens/sign_in.dart';
+import 'package:car_firebase/screens/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -22,10 +24,14 @@ class _DynamicUserValidationState extends State<DynamicUserValidation> {
     var tasks = await _auth.fetchSignInMethodsForEmail(email);
 
     if(tasks.isEmpty){
-      //TODO: Navigate to Signup Screen with the email
+      //Completed: Navigate to Signup Screen with the email
+      Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp(email)));
+      
     }
     else {
-      //TODO: Navigate to SignIn Screen with the email
+      //Completed: Navigate to SignIn Screen with the email
+      Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn(email)));
+
     }
 
 

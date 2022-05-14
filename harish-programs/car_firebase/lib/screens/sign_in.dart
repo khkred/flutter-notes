@@ -42,12 +42,6 @@ class _SignInState extends State<SignIn> {
       /**
        * Checking fetchSignInMethodsForEmail
        */
-      var listOfMethods = await _auth.fetchSignInMethodsForEmail(email);
-
-      for(var signIn in listOfMethods) {
-        print("Harish: "+signIn);
-      }
-
 
     ScaffoldMessenger.of(context).showSnackBar(bar);
     } on FirebaseAuthException catch(e){

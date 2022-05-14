@@ -24,8 +24,14 @@ class _SignUpState extends State<SignUp> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   signupUser(String email, String password) async {
-    var credentials = (await _auth.createUserWithEmailAndPassword(
-        email: email, password: password));
+    User? user;
+
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      user = userCredential.user;
+
+      var bar = SnackBar(content: Text("${user?.email} has signed up"));
+
+      ScaffoldMessenger.of(context).showSnackBar(bar);
   }
 
   @override

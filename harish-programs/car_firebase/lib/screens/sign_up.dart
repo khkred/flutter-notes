@@ -15,8 +15,8 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
 
-  //TODO: Call the email parameter, remove _email and emailEditingController
-  //TODO: Remove TextForm Field for email and replace it with a list tile.
+  //Completed: Call the email parameter, remove _email and emailEditingController
+  //Completed: Remove TextForm Field for email and replace it with a list tile.
 
 
   String _password = "";
@@ -35,7 +35,7 @@ class _SignUpState extends State<SignUp> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ListTile(
-            title: Text(),
+            title: Text(widget.email),
           ),
           TextFormField(
             decoration: InputDecoration(hintText: "Password"),
@@ -50,14 +50,14 @@ class _SignUpState extends State<SignUp> {
           ),
           ElevatedButton(
               onPressed: () {
-                if (_email.isEmpty || _password.isEmpty) {
+                if (widget.email.isEmpty || _password.isEmpty) {
                   const snackBar = SnackBar(
                     content: Text("One of these fields is empty"),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 } else {
                   setState(() {
-                    signupUser(_email, _password);
+                    signupUser(widget.email, _password);
                   });
                 }
               },

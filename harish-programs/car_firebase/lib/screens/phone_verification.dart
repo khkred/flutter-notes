@@ -16,6 +16,8 @@ class _PhoneVerificationState extends State<PhoneVerification> {
   final _otpController = TextEditingController();
 
    String otp=  "";
+   bool otpToBeSent = true;
+   bool isOtpEntered = false;
 
   validatePhoneNumber(String phoneNumber) async {
 
@@ -38,12 +40,26 @@ class _PhoneVerificationState extends State<PhoneVerification> {
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
         },
-        codeSent: (String verificationId, int? resendToken) {
+        codeSent: (String verificationId, int? resendToken) async{
+          otpToBeSent = false;
+          String sentOTP = await otp;
+
+          if(isOtpEntered) {
+            PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: otp);
+            await widget.auth.signInWithCredential(credential);
+          }
+          else {
+            const snackBar = SnackBar(
+                content: Text('OTP Not yet entered'));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
 
 
         },
         codeAutoRetrievalTimeout: (String verificationId) {});
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +67,7 @@ class _PhoneVerificationState extends State<PhoneVerification> {
       body: Container(
         padding: EdgeInsets.all(32),
         child: Form(
-          child: otp==""? Column(
+          child: otpToBeSent? Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -98,7 +114,10 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
                       else {
-                        validatePhoneNumber(phoneNumber);
+                        setState(() {
+                          validatePhoneNumber(phoneNumber);
+                        });
+
                       }
                     }, child: const Icon(Icons.arrow_forward)),
                   )
@@ -137,6 +156,16 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                 child: const Text("Submit OTP"),
                 //padding: EdgeInsets.all(16),
                 onPressed: () {
+                  otp = _otpController.text;
+                  if(otp.isEmpty) {
+                    const snackBar = SnackBar(
+                        content: Text("OTP is empty"));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    return;
+                  } else{
+
+                    isOtpEntered = true;
+                  }
                 },
                 // color: Colors.blue,
               )

@@ -13,7 +13,9 @@ class PhoneVerification extends StatefulWidget {
 
 class _PhoneVerificationState extends State<PhoneVerification> {
   final _phoneController = TextEditingController();
-  final _passController = TextEditingController();
+  final _otpController = TextEditingController();
+
+   String otp=  "";
 
   validatePhoneNumber(String phoneNumber) async {
 
@@ -22,9 +24,7 @@ class _PhoneVerificationState extends State<PhoneVerification> {
         verificationCompleted: (PhoneAuthCredential credential) async{
           // I want to link the users phone number
           await widget.auth.signInWithCredential(credential);
-
           var user = widget.auth.currentUser;
-
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => HomeScreen(user: user!,)),
@@ -38,7 +38,10 @@ class _PhoneVerificationState extends State<PhoneVerification> {
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
         },
-        codeSent: (String verificationId, int? resendToken) {},
+        codeSent: (String verificationId, int? resendToken) {
+
+
+        },
         codeAutoRetrievalTimeout: (String verificationId) {});
   }
 
@@ -48,7 +51,7 @@ class _PhoneVerificationState extends State<PhoneVerification> {
       body: Container(
         padding: EdgeInsets.all(32),
         child: Form(
-          child: Column(
+          child: otp==""? Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -62,24 +65,53 @@ class _PhoneVerificationState extends State<PhoneVerification> {
             const   SizedBox(
                 height: 16,
               ),
-              TextFormField(
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(color: Colors.grey.shade200)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(color: Colors.grey.shade300)),
-                    filled: true,
-                    fillColor: Colors.grey[100],
-                    hintText: "Phone Number"),
-                controller: _phoneController,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              borderSide: BorderSide(color: Colors.grey.shade200)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              borderSide: BorderSide(color: Colors.grey.shade300)),
+                          filled: true,
+                          fillColor: Colors.grey[100],
+                          hintText: "Phone Number"),
+                      controller: _phoneController,
+                    ),
+                  ),
+
+                  Expanded(
+                    flex: 1,
+                    child: ElevatedButton(onPressed: (){
+                      //code for sign in
+                      String phoneNumber  = _phoneController.text;
+
+                      if(phoneNumber.isEmpty) {
+                        const snackBar = SnackBar(
+                          content: Text("Phone Number is empty"),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                      else {
+                        validatePhoneNumber(phoneNumber);
+                      }
+                    }, child: const Icon(Icons.arrow_forward)),
+                  )
+                ],
               ),
               SizedBox(
                 height: 16,
               ),
 
-              //TODO: Look at OTP in iOS
+
+            ],
+          ): Column(
+            children: [
               TextFormField(
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -90,33 +122,21 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                         borderSide: BorderSide(color: Colors.grey.shade300)),
                     filled: true,
                     fillColor: Colors.grey[100],
-                    hintText: "Password"),
-                controller: _passController,
+                    hintText: "OTP"),
+                controller: _otpController,
               ),
-              const SizedBox(
-                height: 16,
-              ),
+
+
+              //TODO: Look at OTP in iOS
               ElevatedButton(
                 style: TextButton.styleFrom(
                   primary: Colors.white,
                   padding: EdgeInsets.all(16),
                   textStyle: const TextStyle(fontSize: 20),
                 ),
-                child: const Text("Login"),
+                child: const Text("Submit OTP"),
                 //padding: EdgeInsets.all(16),
                 onPressed: () {
-                  //code for sign in
-                  String phoneNumber  = _phoneController.text;
-
-                  if(phoneNumber.isEmpty) {
-                    const snackBar = SnackBar(
-                      content: Text("Phone Number is empty"),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  }
-                  else {
-                    validatePhoneNumber(phoneNumber);
-                  }
                 },
                 // color: Colors.blue,
               )

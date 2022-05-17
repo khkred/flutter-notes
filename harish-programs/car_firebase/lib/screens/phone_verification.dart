@@ -18,7 +18,7 @@ class _PhoneVerificationState extends State<PhoneVerification> {
   validatePhoneNumber(String phoneNumber) async {
 
     await widget.auth.verifyPhoneNumber(
-        phoneNumber: phoneNumber,
+        phoneNumber: '+65 86484986',
         verificationCompleted: (PhoneAuthCredential credential) async{
           // I want to link the users phone number
           await widget.auth.signInWithCredential(credential);
@@ -115,7 +115,9 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
                   else {
-                    validatePhoneNumber(phoneNumber);
+                    setState(() {
+                      validatePhoneNumber(phoneNumber);
+                    });
                   }
                 },
                 // color: Colors.blue,

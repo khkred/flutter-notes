@@ -147,7 +147,7 @@ class _PV2State extends State<PV2> {
     //Validate the OTP by calling a function in Auth
 
     User  user = widget.auth.currentUser!;
-    PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: globalVerificationId, smsCode: otp)
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: globalVerificationId, smsCode: otp);
     user.linkWithCredential(credential);
 
     await widget.auth.signInWithCredential(credential).then((value){

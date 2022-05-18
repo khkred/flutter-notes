@@ -1,3 +1,4 @@
+import 'package:car_firebase/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -17,8 +18,11 @@ class _PV2State extends State<PV2> {
   final _phoneController = TextEditingController();
   final _otpController = TextEditingController();
 
+
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
           padding: const EdgeInsets.all(32),
@@ -53,7 +57,14 @@ class _PV2State extends State<PV2> {
                             verifyPhoneNo(_phoneController.text);
                           }
                         },
-                        child: const Text("Get OTP"))
+                        child: const Text("Get OTP")),
+                    ElevatedButton(onPressed: (){
+                      User  user = widget.auth.currentUser!;
+
+                       var snackBar = SnackBar(
+                          content: Text("${user.email} has signed up"));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }, child: const Text("Get User"))
                   ],
                 )
               : Column(
@@ -92,10 +103,14 @@ class _PV2State extends State<PV2> {
     );
   }
 
+
+
   verifyPhoneNo(String phoneNo) async {
+
 
     await widget.auth.verifyPhoneNumber(
         phoneNumber: phoneNo,
+
         verificationCompleted: (PhoneAuthCredential credential) async{
 
           //After the User SignsIn
@@ -122,7 +137,6 @@ class _PV2State extends State<PV2> {
             globalVerificationId = verificationId;
           });
 
-
         },
         codeAutoRetrievalTimeout: (String verificationId) {
 
@@ -132,12 +146,15 @@ class _PV2State extends State<PV2> {
   validateOTP(String otp) async{
     //Validate the OTP by calling a function in Auth
 
-    PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: globalVerificationId, smsCode: otp);
+    User  user = widget.auth.currentUser!;
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: globalVerificationId, smsCode: otp)
+    user.linkWithCredential(credential);
 
     await widget.auth.signInWithCredential(credential).then((value){
-      const snackBar = SnackBar(
-          content: Text('OTP is valid'));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) =>  HomeScreen(auth: widget.auth, user: user)),
+      );
     });
 
   }

@@ -1,15 +1,29 @@
+import 'package:car_firebase/screens/dynamic_user_validation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
 
   final User user;
+  final FirebaseAuth auth;
 
-  HomeScreen({required this.user});
+
+  HomeScreen({required this.auth, required this.user});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [IconButton(onPressed: (){
+
+        }, icon: const Icon(Icons.exit_to_app))],
+      ),
       body: Container(
         padding: EdgeInsets.all(32),
         child: Column(
@@ -18,10 +32,28 @@ class HomeScreen extends StatelessWidget {
           children: <Widget>[
             Text("You are Logged in succesfully", style: TextStyle(color: Colors.lightBlue, fontSize: 32),),
             SizedBox(height: 16,),
-            Text("${user.phoneNumber}", style: TextStyle(color: Colors.grey, ),),
+            Text("${widget.user.email} is signed in",style: TextStyle(color: Colors.grey, ),),
+            Text("${widget.user.phoneNumber}", style: TextStyle(color: Colors.grey, ),),
           ],
         ),
       ),
     );
+  }
+
+  signOutUser() async{
+
+    await widget.auth.signOut().then((value) {
+      //First show a snackbar that says the user is signed out
+      const snackBar = SnackBar(
+          content: Text("User has been signed out"));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const DynamicUserValidation()),
+      );
+
+    });
+
   }
 }

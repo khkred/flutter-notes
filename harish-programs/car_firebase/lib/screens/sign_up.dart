@@ -27,7 +27,12 @@ class _SignUpState extends State<SignUp> {
   signupUser(String email, String password) async {
     User? user;
 
-      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+    /**
+     * Link credentials to the user.
+     */
+
+
+    UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       user = userCredential.user;
 
       var bar = SnackBar(content: Text("${user?.email} has signed up"));

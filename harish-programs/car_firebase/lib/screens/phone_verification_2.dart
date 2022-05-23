@@ -113,9 +113,11 @@ class _PV2State extends State<PV2> {
 
         verificationCompleted: (PhoneAuthCredential credential) async{
 
+          var existingUser =  widget.auth.currentUser;
+
 
           //After the User SignsIn
-          await widget.auth.signInWithCredential(credential).then((value) {
+          await existingUser?.linkWithCredential(credential).then((value) {
 
             const snackBar = SnackBar(
                 content: Text("User Signed In SuccessFully"));

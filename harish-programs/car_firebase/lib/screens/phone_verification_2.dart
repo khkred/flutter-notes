@@ -127,12 +127,16 @@ class _PV2State extends State<PV2> {
 
 
         },
+        /**
+         * Handles only invalid phone no.s or if sms quota expired
+         */
         verificationFailed: (FirebaseAuthException e) {
           if (e.code == 'invalid-phone-number') {
             const snackBar = SnackBar(
                 content: Text('The provided phone number is not valid.'));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
+
         },
         codeSent: (String verificationId, int? resendToken) async{
           setState(() {
@@ -149,16 +153,27 @@ class _PV2State extends State<PV2> {
   validateOTP(String otp) async{
     //Validate the OTP by calling a function in Auth
 
-    User  user = widget.auth.currentUser!;
-    PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: globalVerificationId, smsCode: otp);
-    user.linkWithCredential(credential);
+    try {
+      User user = widget.auth.currentUser!;
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+          verificationId: globalVerificationId, smsCode: otp);
+      user.linkWithCredential(credential);
 
-    await widget.auth.signInWithCredential(credential).then((value){
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) =>  HomeScreen(auth: widget.auth, user: user)),
-      );
-    });
+      await widget.auth.signInWithCredential(credential).then((value) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HomeScreen(auth: widget.auth, user: user)),
+        );
+      });
+    }
+    on FirebaseAuthException catch(e) {
+      if(e.code=="invalid-verification-code"){
+        const snackBar = SnackBar(
+            content: Text("Invalid OTP. Please Enter Correct OTP"));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+    }
 
   }
 

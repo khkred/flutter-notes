@@ -22,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         actions: [IconButton(onPressed: (){
           signOutUser();
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const DynamicUserValidation()));
         }, icon: const Icon(Icons.exit_to_app))],
       ),
       body: Container(
@@ -47,11 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
       const snackBar = SnackBar(
           content: Text("User has been signed out"));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const DynamicUserValidation()),
-      );
 
     });
 

@@ -1,4 +1,5 @@
 import 'package:car_firebase/screens/dynamic_user_validation.dart';
+import 'package:car_firebase/screens/list_pet.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -35,6 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: 16,),
             Text("${widget.user.email} is signed in",style: TextStyle(color: Colors.grey, ),),
             Text("${widget.user.phoneNumber}", style: TextStyle(color: Colors.grey, ),),
+
+            ElevatedButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ListPets()));
+            }, child: Text("List of Pets"))
 
             //TODO: Add a button with label "list of pets"
           ],

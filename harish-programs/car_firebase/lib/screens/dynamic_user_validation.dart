@@ -48,37 +48,39 @@ class _DynamicUserValidationState extends State<DynamicUserValidation> {
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      width: double.infinity,
-      height: double.infinity,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 3,
-            child: TextFormField(
-              decoration: const InputDecoration(hintText: "Enter your email"),
-              controller: myController,
+    return Scaffold(
+      body: Container(
+        padding: const EdgeInsets.all(20),
+        width: double.infinity,
+        height: double.infinity,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 3,
+              child: TextFormField(
+                decoration: const InputDecoration(hintText: "Enter your email"),
+                controller: myController,
+              ),
             ),
-          ),
-          Expanded(
-              flex: 1,child: IconButton(onPressed: () {
-                setState(() {
-                  _email = myController.text;
-                });
-                if(_email.isEmpty){
-                  const snackBar = SnackBar(
-                    content: Text("Email is empty"),
-                  );
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(snackBar);
-                } else {
-                  validateUser(_email);
-                }
+            Expanded(
+                flex: 1,child: IconButton(onPressed: () {
+                  setState(() {
+                    _email = myController.text;
+                  });
+                  if(_email.isEmpty){
+                    const snackBar = SnackBar(
+                      content: Text("Email is empty"),
+                    );
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(snackBar);
+                  } else {
+                    validateUser(_email);
+                  }
 
-          }, icon: const Icon(Icons.arrow_forward))),
-        ],
+            }, icon: const Icon(Icons.arrow_forward))),
+          ],
+        ),
       ),
     );
   }

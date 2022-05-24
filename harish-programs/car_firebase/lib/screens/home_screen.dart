@@ -17,6 +17,34 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
+
+  //  Future<bool> _onBackPressed(){
+  //   return showDialog(context: context, builder: (context){
+  //     return AlertDialog(
+  //       title: const Text('Are you Sure?'),
+  //       content: const Text('Do you want to logout?'),
+  //       actions: [
+  //         GestureDetector(
+  //           child: const Text('No'),
+  //           onTap: (){
+  //             Navigator.of(context).pop(false);
+  //           },
+  //         ),
+  //        const SizedBox(height: 16),
+  //         GestureDetector(
+  //           child: const Text('Yes'),
+  //           onTap: (){
+  //             //Signout the user
+  //             widget.auth.signOut();
+  //             Navigator.of(context).pop(true);
+  //           },
+  //         )
+  //       ],
+  //     );
+  //   }) ?? false;
+  // }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

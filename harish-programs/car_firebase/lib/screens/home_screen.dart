@@ -35,6 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: 16,),
             Text("${widget.user.email} is signed in",style: TextStyle(color: Colors.grey, ),),
             Text("${widget.user.phoneNumber}", style: TextStyle(color: Colors.grey, ),),
+
+            //TODO: Add a button with label "list of pets"
           ],
         ),
       ),

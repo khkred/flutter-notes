@@ -19,12 +19,36 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
+  Future<bool?> _onBackPressed(BuildContext context) {
+
+    // show Dialog will return the boolean value
+
+    return showDialog<bool>(context: context, builder: (context)=>AlertDialog(
+      content: const Text("Are you sure?"),
+      title: const Text("Do you want to exit"),
+
+      actions: [
+        ElevatedButton(onPressed: ()=>Navigator.pop(context,false), child: const Text("No")),
+        /**
+         * When yes is pressed we have to sign out the user
+         */
+        ElevatedButton(onPressed: () async{
+          await signOutUser();
+   return Navigator.pop(context,true);
+    }, child
+    : const Text("Yes"))
+      ],
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async{
         print("Back pressed");
-        return false;
+        var result = await _onBackPressed(context);
+
+        return result ?? false;
       },
       child: Scaffold(
         appBar: AppBar(
@@ -39,16 +63,15 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("You are Logged in succesfully", style: TextStyle(color: Colors.lightBlue, fontSize: 32),),
-              SizedBox(height: 16,),
-              Text("${widget.user.email} is signed in",style: TextStyle(color: Colors.grey, ),),
-              Text("${widget.user.phoneNumber}", style: TextStyle(color: Colors.grey, ),),
+            const  Text("You are Logged in successfully", style: TextStyle(color: Colors.lightBlue, fontSize: 32),),
+            const   SizedBox(height: 16,),
+              Text("${widget.user.email} is signed in",style: const TextStyle(color: Colors.grey, ),),
+              Text("${widget.user.phoneNumber}", style: const TextStyle(color: Colors.grey, ),),
 
               ElevatedButton(onPressed: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => ListPets()));
-              }, child: Text("List of Pets"))
-
-              //TODO: Add a button with label "list of pets"
+              }, child: const Text("List of Pets"))
+              
             ],
           ),
         ),

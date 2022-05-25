@@ -1,3 +1,4 @@
+import 'package:car_firebase/screens/home_screen.dart';
 import 'package:car_firebase/screens/phone_verification_2.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -47,7 +48,7 @@ class _SignInState extends State<SignIn> {
        */
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) =>   PV2(auth: _auth)),
+        MaterialPageRoute(builder: (context) =>   HomeScreen(auth: _auth, user: _auth.currentUser!)),
       );
     } on FirebaseAuthException catch(e){
       if(e.code == 'user-not-found'){

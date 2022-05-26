@@ -28,7 +28,8 @@ class _MyAppState extends State<MyApp> {
           });
         }, items: [
           SalomonBottomBarItem(icon: const Icon(Icons.home), title: const Text("First"),selectedColor: Colors.blueAccent),
-        SalomonBottomBarItem(icon: const Icon(Icons.ac_unit), title: const Text("Second"),selectedColor: Colors.redAccent)
+        SalomonBottomBarItem(icon: const Icon(Icons.ac_unit), title: const Text("Second"),selectedColor: Colors.redAccent),
+        SalomonBottomBarItem(icon: const Icon(Icons.access_time), title: const Text("Third"),selectedColor: Colors.greenAccent)
       ],
       ),
       body: FirstScreen(),

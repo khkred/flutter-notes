@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ElevatedButton(onPressed: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => ListPets()));
               }, child: const Text("List of Pets"))
-              
+
             ],
           ),
         ),

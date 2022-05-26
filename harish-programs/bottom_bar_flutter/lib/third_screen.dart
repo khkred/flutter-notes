@@ -7,7 +7,7 @@ class ThirdScreen extends StatelessWidget {
 
     return const Scaffold(
 
-      backgroundColor: Colors.yellowAccent,
+      backgroundColor: Colors.greenAccent,
       body: Center(
         child: Text("Third Screen"),
       ),

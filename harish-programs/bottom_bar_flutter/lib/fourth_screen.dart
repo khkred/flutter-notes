@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class ThirdScreen extends StatelessWidget {
+class FourthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Colors.greenAccent,
+      backgroundColor: Colors.yellowAccent,
       body: Center(
-        child: Text("Third Screen"),
+        child: Text("Fourth Screen"),
       ),
     );
   }

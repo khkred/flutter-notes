@@ -4,8 +4,11 @@ import 'package:bottom_bar_flutter/third_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
+import 'fourth_screen.dart';
+
 void main() {
-  runApp(MyApp());}
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -19,10 +22,12 @@ class _MyAppState extends State<MyApp> {
 
   //list of widgets to call ontap
   final screenOptions = [
-     FirstScreen(),
-     SecondScreen(),
-     ThirdScreen(),
+    FirstScreen(),
+    SecondScreen(),
+    ThirdScreen(),
+    FourthScreen()
   ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -47,7 +52,11 @@ class _MyAppState extends State<MyApp> {
             SalomonBottomBarItem(
                 icon: const Icon(Icons.access_time),
                 title: const Text("Third"),
-                selectedColor: Colors.greenAccent)
+                selectedColor: Colors.greenAccent),
+            SalomonBottomBarItem(
+                icon: const Icon(Icons.accessibility_new_outlined),
+                title: Text("Fourth"),
+                selectedColor: Colors.yellowAccent)
           ],
         ),
         body: screenOptions.elementAt(_currentIndex),

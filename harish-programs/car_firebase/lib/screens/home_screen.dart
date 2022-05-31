@@ -2,6 +2,7 @@ import 'package:car_firebase/screens/dynamic_user_validation.dart';
 import 'package:car_firebase/screens/list_pet.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class HomeScreen extends StatefulWidget {
 

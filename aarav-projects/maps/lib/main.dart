@@ -26,6 +26,7 @@ class _MyAppState extends State<MyApp> {
           infoWindow: InfoWindow(
             title: office.name,
             snippet: office.address,
+            onTap: ()=>print(office.name),
           ),
         );
         _markers[office.name] = marker;

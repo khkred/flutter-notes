@@ -17,12 +17,7 @@ class LatLng {
 
   final double lat;
   final double lng;
-
-  factory LatLng.fromJson2(Map<String, dynamic> mapJson) => LatLng(lat: mapJson['lat'], lng: mapJson['lng']);
-
-
 }
-
 
 @JsonSerializable()
 class Region {
@@ -84,7 +79,7 @@ class Locations {
 }
 
 Future<Locations> getGoogleOffices() async {
-  //const googleLocationsURL = 'https://about.google/static/data/locations.json';
+  const googleLocationsURL = 'https://about.google/static/data/locations.json';
 
   // Retrieve the locations of Google offices
   try {

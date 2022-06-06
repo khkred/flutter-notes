@@ -11,90 +11,203 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final Set<Marker> _markers = {};
-
-  LatLng _lastMapPosition = _center;
-
-  Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-
-  var geolocator = Geolocator();
-  var locationOptions = LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
-  StreamSubscription<Position> positionStream = geolocator.getPositionStream(locationOptions).listen(
-          (Position position) {
-        print(position == null ? 'Unknown' : position.latitude.toString() + ', ' + position.longitude.toString());
-      });
-
-  void _onAddMarkerButtonPressed() {
-    setState(() {
-      _markers.add(Marker(
-// This marker id can be anything that uniquely identifies each marker.
-        markerId: MarkerId(_lastMapPosition.toString()),
-        position: _lastMapPosition,
-        infoWindow: InfoWindow(
-          title: 'Really cool place',
-          snippet: '5 Star Rating',
-        ),
-        icon: BitmapDescriptor.defaultMarker,
-      ));
-    });
-  }
-
-  void _onCameraMove(CameraPosition position) {
-    _lastMapPosition = position.target;
-  }
-
-  Completer<GoogleMapController> _controller = Completer();
-
-  static const LatLng _center = const LatLng(45.521563, -122.677433);
-
-  void _onMapCreated(GoogleMapController controller) {
-    _controller.complete(controller);
-  }
+  final homeScaffoldKey = GlobalKey<ScaffoldState>();
+  GoogleMapController mapController;
+  List<PlacesSearchResult> places = [];
+  bool isLoading = false;
+  String errorMessage;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Places Api"),
-          backgroundColor: Colors.green[700],
-        ),
-        body: Stack(
-          children: <Widget>[
-            GoogleMap(
-              onMapCreated: _onMapCreated,
-              initialCameraPosition: CameraPosition(
-                target: _center,
-                zoom: 11.0,
-              ),
-              markers: _markers,
-              onCameraMove: _onCameraMove,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Column(
-                  children: [
-                    FloatingActionButton(
-                      onPressed: () => print("button pressed"),
-                      materialTapTargetSize: MaterialTapTargetSize.padded,
-                      backgroundColor: Colors.green,
-                      child: const Icon(Icons.map, size: 36.0),
-                    ),
-                    FloatingActionButton(
-                      onPressed: _onAddMarkerButtonPressed,
-                      materialTapTargetSize: MaterialTapTargetSize.padded,
-                      backgroundColor: Colors.green,
-                      child: const Icon(Icons.add_location, size: 36.0),
-                    ),
-                  ],
+    Widget expandedChild;
+    if (isLoading) {
+      expandedChild = Center(child: CircularProgressIndicator(value: null));
+    } else if (errorMessage != null) {
+      expandedChild = Center(
+        child: Text(errorMessage),
+      );
+    } else {
+      expandedChild = buildPlacesList();
+    }
+
+    return Scaffold(
+      key: homeScaffoldKey,
+      appBar: AppBar(
+        title: const Text('PlaceZ'),
+        actions: <Widget>[
+          isLoading
+              ? IconButton(
+                  icon: Icon(Icons.timer),
+                  onPressed: () {},
+                )
+              : IconButton(
+                  icon: Icon(Icons.refresh),
+                  onPressed: () {
+                    refresh();
+                  },
                 ),
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              _handlePressButton();
+            },
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          Container(
+            child: SizedBox(
+                height: 200.0,
+                child: GoogleMap(
+                    onMapCreated: _onMapCreated,
+                    options: GoogleMapOptions(
+                        myLocationEnabled: true,
+                        cameraPosition:
+                        const CameraPosition(target: LatLng(0.0, 0.0))))),
+          ),
+          Expanded(child: expandedChild)
+        ],
+      ));
+  }
+  void refresh() async {
+    final center = await getUserLocation();
+    mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+        target: center == null ? LatLng(0, 0) : center, zoom: 15.0)));
+    getNearbyPlaces(center);
+  }
+  void _onMapCreated(GoogleMapController controller) async {
+    mapController = controller;
+    refresh();
+  }
+  Future<LatLng> getUserLocation() async {
+    var currentLocation = <String, double>{};
+    final location = LocationManager.Location();
+    try {
+      currentLocation = await location.getLocation();
+      final lat = currentLocation["latitude"];
+    final lng = currentLocation["longitude"];
+    final center = LatLng(lat, lng);
+    return center;
+    } on Exception {
+    currentLocation = null;
+    return null;
+    }
+  }
+  void getNearbyPlaces(LatLng center) async {
+    setState(() {
+      this.isLoading = true;
+      this.errorMessage = null;
+    });
+    final location = Location(center.latitude, center.longitude);
+    final result = await _places.searchNearbyWithRadius(location, 2500);
+    setState(() {
+      this.isLoading = false;
+      if (result.status == “OK”) {
+        this.places = result.results;
+        result.results.forEach((f) {
+          final markerOptions = MarkerOptions(
+              position:
+              LatLng(f.geometry.location.lat, f.geometry.location.lng),
+              infoWindowText: InfoWindowText(“${f.name}”, “${f.types?.first}”));
+          mapController.addMarker(markerOptions);
+        });
+      } else {
+        this.errorMessage = result.errorMessage;
+      }
+    });
+  }
+  void onError(PlacesAutocompleteResponse response) {
+    homeScaffoldKey.currentState.showSnackBar(
+      SnackBar(content: Text(response.errorMessage)),
+    );
+  }
+  Future<void> _handlePressButton() async {
+    try {
+      final center = await getUserLocation();
+      Prediction p = await PlacesAutocomplete.show(
+          context: context,
+          strictbounds: center == null ? false : true,
+          apiKey: kGoogleApiKey,
+          onError: onError,
+          mode: Mode.fullscreen,
+          language: “en”,
+          location: center == null
+              ? null
+              : Location(center.latitude, center.longitude),
+          radius: center == null ? null : 10000);
+      showDetailPlace(p.placeId);
+    } catch (e) {
+      return;
+    }
+  }
+  Future<Null> showDetailPlace(String placeId) async {
+    if (placeId != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => PlaceDetailWidget(placeId)),
+      );
+    }
+  }
+  ListView buildPlacesList() {
+    final placesWidget = places.map((f) {
+      List<Widget> list = [
+        Padding(
+          padding: EdgeInsets.only(bottom: 4.0),
+          child: Text(
+            f.name,
+            style: Theme.of(context).textTheme.subtitle,
+          ),
+        )
+      ];
+      if (f.formattedAddress != null) {
+        list.add(Padding(
+          padding: EdgeInsets.only(bottom: 2.0),
+          child: Text(
+            f.formattedAddress,
+            style: Theme.of(context).textTheme.subtitle,
+          ),
+        ));
+      }
+      if (f.vicinity != null) {
+        list.add(Padding(
+          padding: EdgeInsets.only(bottom: 2.0),
+          child: Text(
+            f.vicinity,
+            style: Theme.of(context).textTheme.body1,
+          ),
+        ));
+      }
+      if (f.types?.first != null) {
+        list.add(Padding(
+          padding: EdgeInsets.only(bottom: 2.0),
+          child: Text(
+            f.types.first,
+            style: Theme.of(context).textTheme.caption,
+          ),
+        ));
+      }
+      return Padding(
+        padding: EdgeInsets.only(top: 4.0, bottom: 4.0, left: 8.0, right: 8.0),
+        child: Card(
+          child: InkWell(
+            onTap: () {
+              showDetailPlace(f.placeId);
+            },
+            highlightColor: Colors.lightBlueAccent,
+            splashColor: Colors.red,
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: list,
               ),
             ),
-          ],
+          ),
         ),
-      ),
-    );
+      );
+    }).toList();
+    return ListView(shrinkWrap: true, children: placesWidget);
   }
 }

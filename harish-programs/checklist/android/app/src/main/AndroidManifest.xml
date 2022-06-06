@@ -1,15 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aarav.places_assignment2">
-
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    package="com.example.checklist">
    <application
-        android:label="places_assignment2"
+        android:label="checklist"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-
-       <meta-data
-           android:name="com.google.android.geo.API_KEY" android:value="AIzaSyACTNsefB6GtAHhs_gNEDlRP9KGYVvn_40"/>
-
         <activity
             android:name=".MainActivity"
             android:exported="true"

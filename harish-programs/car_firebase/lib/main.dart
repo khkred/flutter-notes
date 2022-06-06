@@ -23,9 +23,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  final screenOptions = [
-    HomeScreen(auth: auth, user: user),
-  ];
 
   @override
   Widget build(BuildContext context) {

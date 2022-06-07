@@ -36,12 +36,18 @@ class _MyAppState extends State<MyApp> {
     }
 
     /**
+     * Request Location Permission
+     */
+    await Geolocator.requestPermission();
+
+    /**
      * Check the permission for location
      */
 
     LocationPermission locationPermission = await Geolocator.checkPermission();
 
     if (locationPermission == LocationPermission.denied) {
+
       return Future.error(_kPermissionDeniedMessage);
     }
     if (locationPermission == LocationPermission.deniedForever) {

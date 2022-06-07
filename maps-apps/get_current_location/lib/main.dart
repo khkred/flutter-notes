@@ -54,7 +54,18 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Container(
-      
+      child: FutureBuilder<Position>(
+        future: determinePosition(),
+        builder: (context, snapshot){
+          if(snapshot.hasData){
+            return Center(child: Text("${snapshot.data}"));
+          }
+          if(snapshot.hasError){
+            return Center(child: Text("${snapshot.error}"));
+          }
+          return CircularProgressIndicator();
+        },
+      ),
     ));
   }
 }

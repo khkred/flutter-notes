@@ -28,7 +28,7 @@ class MovieDetails extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-
+r
               //Title Row
               Row(
                 children: [

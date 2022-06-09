@@ -28,9 +28,7 @@ class _MyAppState extends State<MyApp> {
       'Permission denied forever.';
   static const String _kPermissionGrantedMessage = 'Permission granted.';
 
-  /**
-   * The following function determines the position
-   */
+  /// The following function determines the position
   Future<Position> determinePosition() async {
     //Check if the position is enabled
 

@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.maps_nearby">
+
+    <meta-data android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyDZ36Q4KaGB3zDCxLrnZp-7QnrldJy9w5A"/>
    <application
         android:label="maps_nearby"
         android:name="${applicationName}"

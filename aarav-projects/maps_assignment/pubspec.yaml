@@ -1,4 +1,4 @@
-name: get_current_location
+name: maps_assignment
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -35,8 +35,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   geolocator: ^8.2.1
-  geocoding: ^2.0.4
-  google_maps_flutter: ^2.1.7
 
 dev_dependencies:
   flutter_test:

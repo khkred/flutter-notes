@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get_current_location/sampleMaps.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 void main() {
   runApp(const MaterialApp(
-    home: MyApp(),
+    home: SampleMaps(),
     debugShowCheckedModeBanner: false,
   ));
 }
@@ -16,6 +19,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  late GoogleMapController mapController;
+
   static const String _kLocationServicesDisabledMessage =
       'Location services are disabled.';
   static const String _kPermissionDeniedMessage = 'Permission denied.';
@@ -47,7 +52,6 @@ class _MyAppState extends State<MyApp> {
     LocationPermission locationPermission = await Geolocator.checkPermission();
 
     if (locationPermission == LocationPermission.denied) {
-
       return Future.error(_kPermissionDeniedMessage);
     }
     if (locationPermission == LocationPermission.deniedForever) {
@@ -57,16 +61,43 @@ class _MyAppState extends State<MyApp> {
     return Geolocator.getCurrentPosition();
   }
 
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
+
+  Future<String> _getAddressFromLocation() async {
+    Position position = await determinePosition();
+    List<Placemark> p = await placemarkFromCoordinates(position.latitude, position.longitude);
+    print(p);
+    Placemark placemark = p[0];
+    var address =
+        "${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.postalCode}, ${placemark.country}";
+
+    return address;
+  }
+
+  Future<List<double>> getLatLng() async {
+    Position position = await determinePosition();
+    List<double> latLong = [position.latitude, position.longitude];
+
+    return latLong;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Container(
-      child: FutureBuilder<Position>(
-        future: determinePosition(),
-        builder: (context, snapshot){
-          if(snapshot.hasData){
-            return Center(child: Text("${snapshot.data}"));
+    return Scaffold(
+        body: Container(
+      child: FutureBuilder<List<double>>(
+        future: getLatLng(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return GoogleMap(
+                onMapCreated: _onMapCreated,
+                initialCameraPosition: CameraPosition(
+                    target: LatLng(snapshot.data![0], snapshot.data![1]),
+                    zoom: 11.0));
           }
-          if(snapshot.hasError){
+          if (snapshot.hasError) {
             return Center(child: Text("${snapshot.error}"));
           }
           return CircularProgressIndicator();

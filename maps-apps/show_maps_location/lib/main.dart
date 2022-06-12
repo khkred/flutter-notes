@@ -84,22 +84,22 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      child: FutureBuilder<List<double>>(
-        future: getLatLng(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return GoogleMap(
-                onMapCreated: _onMapCreated,
-                initialCameraPosition: CameraPosition(
-                    target: LatLng(snapshot.data![0], snapshot.data![1]),
-                    zoom: 11.0));
-          }
-          if (snapshot.hasError) {
-            return Center(child: Text("${snapshot.error}"));
-          }
-          return CircularProgressIndicator();
-        },
-      ),
-    ));
+          child: FutureBuilder<List<double>>(
+            future: getLatLng(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return GoogleMap(
+                    onMapCreated: _onMapCreated,
+                    initialCameraPosition: CameraPosition(
+                        target: LatLng(snapshot.data![0], snapshot.data![1]),
+                        zoom: 11.0));
+              }
+              if (snapshot.hasError) {
+                return Center(child: Text("${snapshot.error}"));
+              }
+              return CircularProgressIndicator();
+            },
+          ),
+        ));
   }
 }

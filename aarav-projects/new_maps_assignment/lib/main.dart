@@ -9,7 +9,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  GoogleMapController mapController;
+  late GoogleMapController mapController;
 
   static final LatLng _center = const LatLng(45.521563, -122.677433);
   final Set<Marker> _markers = {};
@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Flutter Maps Demo'),
+          title: Text('Vets near you'),
           backgroundColor: Colors.green,
         ),
         body: Stack(

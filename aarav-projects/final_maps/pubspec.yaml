@@ -37,6 +37,8 @@ dependencies:
   google_maps_flutter: ^2.1.8
   http: ^0.13.4
   json_serializable: ^6.2.0
+  polyline: ^1.0.2
+  flutter_polyline_points: ^1.0.0
 
 dev_dependencies:
   flutter_test:

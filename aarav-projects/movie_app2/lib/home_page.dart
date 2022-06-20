@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    movieList = getMovie();
+    movieList =   getMovie();
 
     return Scaffold(
         extendBodyBehindAppBar: true,

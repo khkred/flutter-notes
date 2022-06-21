@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
+// import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -89,18 +89,18 @@ class _MyAppState extends State<MyApp> {
           position: LatLng(vet.latitude, vet.longitude)));
     }
   }
-
-  Future<String> _getAddressFromLocation() async {
-    Position position = await determinePosition();
-    List<Placemark> p =
-        await placemarkFromCoordinates(position.latitude, position.longitude);
-    print(p);
-    Placemark placemark = p[0];
-    var address =
-        "${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.postalCode}, ${placemark.country}";
-
-    return address;
-  }
+  //
+  // Future<String> _getAddressFromLocation() async {
+  //   Position position = await determinePosition();
+  //   List<Placemark> p =
+  //       await placemarkFromCoordinates(position.latitude, position.longitude);
+  //   print(p);
+  //   Placemark placemark = p[0];
+  //   var address =
+  //       "${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.postalCode}, ${placemark.country}";
+  //
+  //   return address;
+  // }
 
   @override
   void initState() async {

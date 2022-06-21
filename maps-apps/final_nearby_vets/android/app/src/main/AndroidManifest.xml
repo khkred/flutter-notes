@@ -4,6 +4,10 @@
         android:label="final_nearby_vets"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+       <meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyDZ36Q4KaGB3zDCxLrnZp-7QnrldJy9w5A"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -78,12 +78,15 @@ Future<Position> determinePosition() async {
           builder: (context,snapshot){
 
           if(snapshot.hasData){
-            return GoogleMap(
-              onMapCreated: _onMapCreated,
-                initialCameraPosition: CameraPosition(
-                  target: LatLng(snapshot.data![0],snapshot.data![1]),
-                  zoom: 11
-                ));
+            print(snapshot.data);
+            return Container(
+              child: GoogleMap(
+                onMapCreated: _onMapCreated,
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(snapshot.data![0],snapshot.data![1]),
+                    zoom: 11.0,
+                  )),
+            );
           }
           if(snapshot.hasError){
             return Center(child: Text("${snapshot.error}"));

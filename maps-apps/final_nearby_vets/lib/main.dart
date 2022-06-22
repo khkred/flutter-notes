@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:final_nearby_vets/utils/constants.dart';
+import 'models/total_data.dart';
+import 'models/vet_clinic.dart';
 
 void main() {
   runApp(const MaterialApp( home: MyApp(),));
@@ -69,12 +74,53 @@ Future<Position> determinePosition() async {
     return latLong;
   }
 
+  /**
+   * We get the total data in the following Function
+   */
+
+  Future<TotalData> getTotalData() async {
+
+
+    List<double> latLng = await getLatLng();
+
+    String vetsUrl =
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=vets&location=${latLng[0]}%2C${latLng[1]}&radius=2500&type=veterinary_care&key=${Constants.apiKey}";
+
+
+    ///Getting the data
+    final response = await http.get(Uri.parse(vetsUrl));
+
+    final Map<String,dynamic> data = jsonDecode(response.body);
+
+
+
+    List<VetClinic> vetClinics = (data["results"] as List).map((vetJson) => VetClinic.fromJson(vetJson)).toList();
+
+    /**
+     * Adding the markets
+     */
+
+    for(VetClinic vetClinic in vetClinics){
+      final marker = Marker(markerId: MarkerId(vetClinic.placeId),
+      position: LatLng(vetClinic.lat,vetClinic.lng),
+        infoWindow: InfoWindow(
+          title: vetClinic.name,
+          snippet: vetClinic.address,
+        ),
+      );
+      _markers.add(marker);
+    }
+
+    return TotalData(usersLat: latLng[0], usersLng: latLng[1], vetClinics: vetClinics);
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<List<double>>(
-        future: getLatLng(),
+      body: FutureBuilder<TotalData>(
+        future: getTotalData(),
           builder: (context,snapshot){
 
           if(snapshot.hasData){
@@ -83,9 +129,11 @@ Future<Position> determinePosition() async {
               child: GoogleMap(
                 onMapCreated: _onMapCreated,
                   initialCameraPosition: CameraPosition(
-                    target: LatLng(snapshot.data![0],snapshot.data![1]),
+                    target: LatLng(snapshot.data!.usersLat,snapshot.data!.usersLng),
                     zoom: 11.0,
-                  )),
+                  ),
+              markers: _markers,
+              ),
             );
           }
           if(snapshot.hasError){

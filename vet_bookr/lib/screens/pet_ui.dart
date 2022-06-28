@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vet_bookr/models/pet.dart';
+import 'symptoms.dart';
+
 
 class PetUi extends StatefulWidget {
   String petName;
@@ -19,11 +20,16 @@ class _PetUiState extends State<PetUi> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-            height: 200,
-            width: 200,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
-            child: Image.asset("assets/dogs.jpg")),
+        GestureDetector(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Symptoms()));
+          },
+          child: Container(
+              height: 200,
+              width: 200,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
+              child: Image.asset("assets/dogs.jpg")),
+        ),
         Text(widget.petName),
       ],
     );

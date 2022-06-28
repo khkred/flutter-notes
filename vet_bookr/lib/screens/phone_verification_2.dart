@@ -143,6 +143,10 @@ class _PV2State extends State<PV2> {
             otpNotSent = false;
             globalVerificationId = verificationId;
           });
+    const snackBar = SnackBar(
+    content: Text('OTP Sent.'));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
 
         },
         codeAutoRetrievalTimeout: (String verificationId) {

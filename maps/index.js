@@ -4,7 +4,7 @@ function initMap() {
     const map = new google.maps.Map(document.getElementById("map"), {
       center: pyrmont,
       zoom: 17,
-      mapId: "8d193001f940fde3",
+      mapId: "8d193001f940fde3", 
     });
     const service = new google.maps.places.PlacesService(map);
     let getNextPage;

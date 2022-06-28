@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "916421099888",
+    "project_id": "the-app-354102",
+    "storage_bucket": "the-app-354102.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916421099888:android:9dcb63fcb2391adfd64fb5",
+        "android_client_info": {
+          "package_name": "com.example.vet_bookr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916421099888-tln5a9s23hn0c8pg5u9vi71sg3h80kau.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXKG5HhBjJqp5cygIDGdCaq1To_gQfTKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916421099888-tln5a9s23hn0c8pg5u9vi71sg3h80kau.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

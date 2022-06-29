@@ -31,7 +31,7 @@ class PrivacyScreen extends StatelessWidget {
             Text("Vet Bookr is hosted on PlayStore and App Store. We urge you to read up on their privacy policies as this might apply in addition to the Vet Bookr Privacy Policy shared in this document.", style: TextStyle(fontSize: 12),),
             Text("How We Use Your Information", style: TextStyle(fontSize: 14 , fontWeight: FontWeight.bold)),
 
-            ElevatedButton(onPressed: (){Navigator.push(context,MaterialPageRoute(builder: (context) => HomeScreen(auth: auth, user: user)));}, child: Text("Next"))
+            ElevatedButton(onPressed: (){Navigator.push(context,MaterialPageRoute(builder: (context) => ListPets()));}, child: Text("Next"))
 
           ],
         ),

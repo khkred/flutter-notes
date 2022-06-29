@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "916421099888-gnnl4dcbomq9totrpu46o43iqhcqtbk2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vet_bookr",
+            "certificate_hash": "9bcb46e61aeda147673ec09188c66197158b6184"
+          }
+        },
+        {
           "client_id": "916421099888-tln5a9s23hn0c8pg5u9vi71sg3h80kau.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,13 @@
             {
               "client_id": "916421099888-tln5a9s23hn0c8pg5u9vi71sg3h80kau.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "916421099888-fjd5kn523hjcuuasrh70dd1no1goprio.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.carFirebase"
+              }
             }
           ]
         }

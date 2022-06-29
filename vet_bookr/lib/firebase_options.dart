@@ -63,6 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '916421099888',
     projectId: 'the-app-354102',
     storageBucket: 'the-app-354102.appspot.com',
+    androidClientId: '916421099888-gnnl4dcbomq9totrpu46o43iqhcqtbk2.apps.googleusercontent.com',
     iosClientId: '916421099888-fjd5kn523hjcuuasrh70dd1no1goprio.apps.googleusercontent.com',
     iosBundleId: 'com.example.carFirebase',
   );

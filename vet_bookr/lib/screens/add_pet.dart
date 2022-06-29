@@ -3,10 +3,6 @@ import 'package:flutter/material.dart';
 import '/models/pet.dart';
 class AddPetScreen extends StatefulWidget {
 
-  Function addPets;
-
-  AddPetScreen(this.addPets);
-
   @override
   State<AddPetScreen> createState() => _AddPetScreenState();
 }
@@ -124,8 +120,6 @@ class _AddPetScreenState extends State<AddPetScreen> {
                             addedPet.addVaccination(vaccinationDate);
 
                             var pet = Pet(name: petName, age: petAge, weight: petWeight, breed: petBreed);
-
-                            widget.addPets(pet);
 
                             addPetToFireStore(addedPet);
                             Navigator.pop(context);

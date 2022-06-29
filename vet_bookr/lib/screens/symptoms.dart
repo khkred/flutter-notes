@@ -13,6 +13,7 @@ class Symptoms extends StatelessWidget {
   double weightController = 0;
   String breedController = "";
   String vaccinationDate = "";
+  String symptomsController = "";
 
   _selectDate(BuildContext context) async {
 
@@ -59,6 +60,20 @@ class Symptoms extends StatelessWidget {
               breedController = breed;
             },
           ),
+
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: TextFormField(
+              minLines: 1,
+              maxLines: 5,
+              keyboardType: TextInputType.multiline,
+              decoration: InputDecoration(hintText: "Pet's Symptoms"),
+              onChanged: (symptoms) {
+                symptomsController = symptoms;
+              },
+            ),
+          ),
+
           Container(
             margin: EdgeInsets.all(10),
             child: Row(

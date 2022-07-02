@@ -93,6 +93,9 @@ Future<Position> determinePosition() async {
     final Map<String,dynamic> data = jsonDecode(response.body);
 
 
+    print(data);
+
+
 
     List<VetClinic> vetClinics = (data["results"] as List).map((vetJson) => VetClinic.fromJson(vetJson)).toList();
 

@@ -72,7 +72,6 @@ class _PV2State extends State<PV2> {
                   children: [
                     TextFormField(
                       decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(8)),
                               borderSide:

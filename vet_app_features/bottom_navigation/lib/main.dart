@@ -1,3 +1,5 @@
+import 'package:bottom_navigation/advanced_bottom_navigation.dart';
+import 'package:bottom_navigation/default_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -23,12 +25,14 @@ class MyApp extends StatelessWidget {
             children: [
               ElevatedButton(
                   onPressed: () {
-
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => DefaultBottomNavigation()));
                   },
                   child: const Text('Default Bottom Navigation')),
               const SizedBox(height: 30,),
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => AdvancedBottomNavigation()));
+                  },
                   child: const Text('Advanced  Bottom Navigation'))
             ],
           ),

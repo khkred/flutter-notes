@@ -12,12 +12,18 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
+
 class _MyAppState extends State<MyApp> {
+  var number = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        
+        TextFormField(
+          controller: number,
+          keyboardType: TextInputType.number,
+        ),
+        IconButton(onPressed: (){}, icon: Icon(Icons.))
       ],
     );
   }

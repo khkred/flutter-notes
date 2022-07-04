@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
 
   //list of widgets to call ontap
   final screenOptions = [
-    FirstScreen(),
+    const FirstScreen(),
     SecondScreen(),
     ThirdScreen(),
       FourthScreen()

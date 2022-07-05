@@ -68,9 +68,7 @@ class _VetsMapsState extends State<VetsMaps> {
     return latLong;
   }
 
-  /**
-   * We get the total data in the following Function
-   */
+  /// We get the total data in the following Function
 
   Future<TotalData> getTotalData() async {
     List<double> latLng = await getLatLng();

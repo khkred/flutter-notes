@@ -22,7 +22,7 @@ class _DefaultBottomNavigationState extends State<DefaultBottomNavigation> {
     PharmaciesList(),
   ];
 
-  void _onItemPressed(int  index){
+  void  _onItemPressed(int  index){
     setState((){
       _selectedIndex = index;
     });

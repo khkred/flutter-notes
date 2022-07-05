@@ -76,7 +76,7 @@ class _VetsMapsState extends State<VetsMaps> {
     List<double> latLng = await getLatLng();
 
     String vetsUrl =
-        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=vets&location=${latLng[0]}%2C${latLng[1]}&radius=10000&type=veterinary_care&key=${Constants
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=vets&location=${latLng[0]}%2C${latLng[1]}&radius=5000&type=veterinary_care&key=${Constants
         .apiKey}";
 
 
@@ -86,7 +86,7 @@ class _VetsMapsState extends State<VetsMaps> {
     final Map<String, dynamic> data = jsonDecode(response.body);
 
 
-    print(data);
+   // print(data);
 
 
     List<VetClinic> vetClinics = (data["results"] as List).map((vetJson) =>

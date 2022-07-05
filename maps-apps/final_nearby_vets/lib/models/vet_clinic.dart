@@ -17,7 +17,7 @@ class VetClinic {
   factory VetClinic.fromJson(Map<String, dynamic> vetJson) => VetClinic(
       name: vetJson["name"],
       address: vetJson["vicinity"],
-      rating: vetJson["rating"],
+      rating: vetJson["rating"].toDouble(),
       placeId: vetJson["place_id"],
       lat: vetJson["geometry"]["location"]["lat"],
       lng: vetJson["geometry"]["location"]["lng"]);

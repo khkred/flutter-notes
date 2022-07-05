@@ -98,7 +98,7 @@ class _VetsMapsState extends State<VetsMaps> {
 
     for (VetClinic vetClinic in vetClinics) {
       final marker = Marker(markerId: MarkerId(vetClinic.placeId),
-        position: LatLng(vetClinic.lat, vetClinic.lng),
+        position: LatLng(vetClinic.lat.toDouble(), vetClinic.lng.toDouble()),
         infoWindow: InfoWindow(
           title: vetClinic.name,
           snippet: vetClinic.address,

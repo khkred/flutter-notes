@@ -16,6 +16,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  bool noImage = true;
   XFile? image;
   ImagePicker imagePicker = ImagePicker();
   @override
@@ -31,9 +33,14 @@ class _MyAppState extends State<MyApp> {
 
               image = await imagePicker.pickImage(source: ImageSource.gallery);
 
+              setState((){
+                noImage = false;
+              });
+
+
             }, child: const Text('Pick an Image')),
             Container(
-              child: image==null? Container(
+             child: noImage? Container(
                 width: 200,
                 height: 200,
                 color: Colors.redAccent.shade400,

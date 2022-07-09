@@ -1,10 +1,18 @@
 
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:image_pickerrr/firebase_options.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+  );
+
   runApp(const MaterialApp(home: MyApp()));
 }
 
@@ -20,6 +28,19 @@ class _MyAppState extends State<MyApp> {
   bool noImage = true;
   XFile? image;
   ImagePicker imagePicker = ImagePicker();
+
+  final storageRef = FirebaseStorage.instance.ref();
+
+  Future<void> uploadImageToFirebase() async{
+    try{
+      final imageRef = storageRef.child(image!.path);
+      await imageRef.putFile(File(image!.path));
+    } on FirebaseException catch(e){
+      SnackBar snackBar = SnackBar(content: Text(e.message!));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,9 +69,13 @@ class _MyAppState extends State<MyApp> {
                 width: 200,
                 height: 200,
                 child: Image.file(File(image!.path),
-                )
+                ),
               )
             ),
+
+            ElevatedButton(onPressed: () async{
+              await uploadImageToFirebase();
+            }, child: const Text('Upload Image'))
           ],
         ),
       )

@@ -20,6 +20,7 @@ class _AddPetScreenState extends State<AddPetScreen> {
   double petWeight = 0;
   String petBreed = "";
   String vaccinationDate = "";
+  String petImageUrl;
 
   _selectDate(BuildContext context) async {
 

@@ -22,7 +22,7 @@ class _PetUiState extends State<PetUi> {
       children: [
         GestureDetector(
           onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Symptoms()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Symptoms(widget.petName)));
           },
           child: Container(
               height: 200,

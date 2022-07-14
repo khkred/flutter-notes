@@ -10,8 +10,7 @@ class AboutScreen extends StatelessWidget {
         title: Text("About Vet Bookr"),
       ),
       body: ListView(
-        children: [Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        children: [PageView(
           children: [
             Text("Hello Pet Parent!", style: TextStyle(fontSize: 14)),
             Text("Greetings and thank you for your interest in Vet Bookr.", style: TextStyle(fontSize: 14)),

@@ -4,15 +4,30 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vet_bookr/screens/clinics_list.dart';
 import 'package:vet_bookr/screens/list_pet.dart';
 import 'package:vet_bookr/models/pet.dart';
+import 'package:vet_bookr/screens/pet_ui.dart';
 
-class Symptoms extends StatelessWidget {
+class Symptoms extends StatefulWidget {
+  String petNames;
+
+  Symptoms(this.petNames);
+
+  @override
+  State<Symptoms> createState() => _SymptomsState();
+}
+
+class _SymptomsState extends State<Symptoms> {
   DateTime selectedDate = DateTime.now();
 
   String nameController = "";
+
   int ageController = 0;
+
   double weightController = 0;
+
   String breedController = "";
+
   String vaccinationDate = "";
+
   String symptomsController = "";
 
   _selectDate(BuildContext context) async {
@@ -28,6 +43,15 @@ class Symptoms extends StatelessWidget {
     }
   }
 
+  Future<DocumentReference> addPetToFireStore(petDetails) {
+    return FirebaseFirestore.instance
+        .collection('pets symptoms')
+        .add(<String, dynamic>{
+      "petName": widget.petNames,
+      "symptoms": symptomsController,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,29 +60,12 @@ class Symptoms extends StatelessWidget {
       ),
       body: Column(
         children: [
-          TextFormField(
-            decoration: InputDecoration(hintText: "Pet's Name"),
-            onChanged: (name) {
-                nameController = name;
-            },
-          ),
-          TextFormField(
-            decoration: InputDecoration(hintText: "Pet's Age"),
-            onChanged: (age) {
-              ageController = int.parse(age);
-            },
-          ),
-          TextFormField(
-            decoration: InputDecoration(hintText: "Pet's Weight"),
-            onChanged: (weight) {
-              weightController = double.parse(weight);
-            },
-          ),
-          TextFormField(
-            decoration: InputDecoration(hintText: "Pet's Breed"),
-            onChanged: (breed) {
-              breedController = breed;
-            },
+
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              widget.petNames,style: TextStyle(fontSize: 14, ),
+            ),
           ),
 
           Padding(
@@ -75,50 +82,19 @@ class Symptoms extends StatelessWidget {
           ),
 
           Container(
-            margin: EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text("Last Vaccination Date"),
-                ElevatedButton(
-                    onPressed: () {
-                      _selectDate(context);
-                    },
-                    child: Text("Select Vaccination Date"))
-              ],
-            ),
-          ),
-
-          Container(
 
               margin: const EdgeInsets.only(top: 90),
               child: ElevatedButton(
                   onPressed: () {
-                    if (nameController.isEmpty ||
-                        ageController == 0 ||
-                        weightController == 0 ||
-                        breedController.isEmpty) {
+                    if (symptomsController.isEmpty) {
                       const snackBar = SnackBar(
-                        content: Text("One of these fields is empty"),
+                        content: Text("The Field is empty"),
                       );
                       ScaffoldMessenger.of(context)
                           .showSnackBar(snackBar);
                     } else {
-                      vaccinationDate =
-                      "${selectedDate.day}-${selectedDate
-                          .month}-${selectedDate.year}";
-                      Pet addedPet = Pet(
-                          name: nameController,
-                          age: ageController,
-                          weight: weightController,
-                          breed: breedController);
-                      addedPet.addVaccination(vaccinationDate);
 
-                      var pet = Pet(name: nameController, age: ageController, weight: weightController, breed: breedController);
-
-                        launchUrl(Uri.parse("tel:+917799000593"));
-
-                      addPetToFireStore(addedPet);
+                      addPetToFireStore(symptomsController);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => Clinics_List()));
                     }
                   },
@@ -130,14 +106,4 @@ class Symptoms extends StatelessWidget {
   }
 }
 
-Future<DocumentReference> addPetToFireStore(Pet addedPet) {
-  return FirebaseFirestore.instance
-      .collection('petsDetails')
-      .add(<String, dynamic>{
-    "petName": addedPet.name,
-    "petAge": addedPet.age,
-    "petWeight": addedPet.weight,
-    "petBreed": addedPet.breed,
-    "vaccination": addedPet.vaccinationDates
-  });
-}
+

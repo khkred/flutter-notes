@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:image_pickerrr/firebase_options.dart';
+import 'package:image_pickerrr/selectedImage.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -75,7 +76,10 @@ class _MyAppState extends State<MyApp> {
 
             ElevatedButton(onPressed: () async{
               await uploadImageToFirebase();
-            }, child: const Text('Upload Image'))
+            }, child: const Text('Upload Image')),
+            FloatingActionButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SelectedImage()));
+            })
           ],
         ),
       )

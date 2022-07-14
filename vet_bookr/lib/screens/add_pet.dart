@@ -1,8 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import '/models/pet.dart';
-class AddPetScreen extends StatefulWidget {
+import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import '/models/pet.dart';
+
+class AddPetScreen extends StatefulWidget {
   @override
   State<AddPetScreen> createState() => _AddPetScreenState();
 }
@@ -15,6 +20,24 @@ class _AddPetScreenState extends State<AddPetScreen> {
   double petWeight = 0;
   String petBreed = "";
   String vaccinationDate = "";
+
+  bool noImage = true;
+
+  XFile? image;
+  ImagePicker imagePicker = ImagePicker();
+
+  final storageRef = FirebaseStorage.instance.ref();
+
+  Future<void> uploadPrescriptionToFirebase() async {
+    try {
+      final imageRef = storageRef.child(image!.path);
+      await imageRef.putFile(File(image!.path));
+    } on FirebaseException catch (e) {
+      SnackBar snackBar = SnackBar(content: Text(e.message!));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
 
   _selectDate(BuildContext context) async {
 
@@ -94,8 +117,28 @@ class _AddPetScreenState extends State<AddPetScreen> {
                   ),
                 ),
 
+                ElevatedButton(
+                    onPressed: () async {
+                      image = await imagePicker.pickImage(
+                          source: ImageSource.gallery);
+                    setState((){
+                      noImage = false;
+                    });
+                      },
+                    child: Text("Select Image")),
                 Container(
+                  child: noImage? Container(
+                    width: 200,
+                    height: 200,
+                  ):
+                      SizedBox(
+                        width: 200,
+                        height: 200,
+                        child: Image.file(File(image!.path)),
+                      )
+                ),
 
+                Container(
                     margin: const EdgeInsets.only(top: 90),
                     child: ElevatedButton(
                         onPressed: () {
@@ -110,8 +153,7 @@ class _AddPetScreenState extends State<AddPetScreen> {
                                 .showSnackBar(snackBar);
                           } else {
                             vaccinationDate =
-                            "${selectedDate.day}-${selectedDate
-                                .month}-${selectedDate.year}";
+                                "${selectedDate.day}-${selectedDate.month}-${selectedDate.year}";
                             Pet addedPet = Pet(
                                 name: petName,
                                 age: petAge,
@@ -119,7 +161,13 @@ class _AddPetScreenState extends State<AddPetScreen> {
                                 breed: petBreed);
                             addedPet.addVaccination(vaccinationDate);
 
-                            var pet = Pet(name: petName, age: petAge, weight: petWeight, breed: petBreed);
+                            var pet = Pet(
+                                name: petName,
+                                age: petAge,
+                                weight: petWeight,
+                                breed: petBreed);
+
+                            uploadPrescriptionToFirebase();
 
                             addPetToFireStore(addedPet);
                             Navigator.pop(context);
@@ -133,7 +181,6 @@ class _AddPetScreenState extends State<AddPetScreen> {
       ),
     );
   }
-
 
   Future<DocumentReference> addPetToFireStore(Pet addedPet) {
     return FirebaseFirestore.instance

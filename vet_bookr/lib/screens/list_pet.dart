@@ -10,8 +10,6 @@ class ListPets extends StatefulWidget {
   State<ListPets> createState() => _ListPetsState();
 }
 
-void listPet() {}
-
 final Stream<QuerySnapshot> _usersStream =
     FirebaseFirestore.instance.collection('petsDetails').snapshots();
 

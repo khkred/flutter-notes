@@ -25,7 +25,7 @@ class MyApp extends StatefulWidget {
 }
 
 final screenOptions = [
-  HomeScreen, Symptoms()
+  HomeScreen, Symptoms("")
 ];
 
 class _MyAppState extends State<MyApp> {

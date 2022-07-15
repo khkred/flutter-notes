@@ -118,7 +118,7 @@ class CharityCard extends StatelessWidget {
                 color: Colors.black.withOpacity(0.4),
                 blurRadius: 20,
                 offset: Offset(0,0)
-            )
+             )
           ],
           image: DecorationImage(
               image: NetworkImage(charity.getImageUrl(charity.logoPath)),

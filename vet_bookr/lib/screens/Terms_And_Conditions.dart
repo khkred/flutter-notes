@@ -7,7 +7,7 @@ class TermsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Terms And Conditions",
+          title: const Text("Terms And Conditions",
             style: TextStyle(fontWeight: FontWeight.bold),),
         ),
         body: Column(
@@ -15,87 +15,86 @@ class TermsScreen extends StatelessWidget {
           Flexible(
           flex: 9,
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [Padding(
-                padding: const EdgeInsets.all(10.0),
+            child: PageView(
+              children: const [Padding(
+                padding: EdgeInsets.all(10.0),
                 child: Text(
                     "This document sets forth the Terms and Conditions for use of the Application operated by Vet Bookr. You hereby acknowledge and agree to the Terms and Conditions for Vet Bookr. You further specifically agree that you are responsible for any risks, of all Pet Owners and others using the Vet Bookr App to contact a clinic and/or vet pharmacy with whom they have established a relationship.",
                     style: TextStyle(fontSize: 14)),
               ),
                 Padding(
-                  padding: const EdgeInsets.only(
+                  padding: EdgeInsets.only(
                       bottom: 10.0, left: 10.0, right: 10.0),
                   child: Text("1. Ability to Contract.", style: TextStyle(
                       fontSize: 14, fontWeight: FontWeight.bold)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
+                  padding: EdgeInsets.only(
                       bottom: 10.0, left: 10.0, right: 10.0),
                   child: Text(
                       "You agree that you are in a condition to agree to be bound by these terms and conditions.",
                       style: TextStyle(fontSize: 12)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
+                  padding: EdgeInsets.only(
                       bottom: 10.0, left: 10.0, right: 10.0),
                   child: Text("2. Account", style: TextStyle(
                       fontSize: 14, fontWeight: FontWeight.bold)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
+                  padding: EdgeInsets.only(
                       bottom: 10.0, left: 10.0, right: 10.0),
                   child: Text(
                       "To participate in the Vet Bookr App, you must create an account. When creating your account, you agree to provide complete and accurate information. You shall be responsible for maintaining the secrecy of your username and password, and Vet Bookr accepts no responsibility for unauthorized use of the same. You agree not to use any username or password not belonging to you.",
                       style: TextStyle(fontSize: 12)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
+                  padding: EdgeInsets.only(
                       bottom: 10.0, left: 10.0, right: 10.0),
                   child: Text("3. Fees for Service", style: TextStyle(
                       fontSize: 14, fontWeight: FontWeight.bold)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
+                  padding: EdgeInsets.only(
                       bottom: 10.0, left: 10.0, right: 10.0),
                   child: Text(
                       "Vet Booker is a free-to-use platform and does not make any money for proving information nor charge for its services. Pet Parents/Clients are to pay Veterinarians/Clinics/Pharmacies/Others directly as Vet Bookr does not provide any payment gateway for such payments. Vet Bookr will not be liable to compensate veterinarians and pharmacies for any services rendered or product sale. Vet Bookr connects pet parents to clinics/pharmacies/Pet-friendly places for free and does not collect any payments from pet parents nor the service and product providers.",
                       style: TextStyle(fontSize: 12)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
+                  padding: EdgeInsets.only(
                       bottom: 10.0, left: 10.0, right: 10.0),
                   child: Text("4. Intellectual Property", style: TextStyle(
                       fontSize: 14, fontWeight: FontWeight.bold)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
+                  padding: EdgeInsets.only(
                       bottom: 10.0, left: 10.0, right: 10.0),
                   child: Text(
                       "All content on Vet Bookr App, including but not limited to images, text, code, graphical designs, and logos are the sole property of Vet Bookr. Unauthorized use, reproduction, distribution, display, or creation of derivative materials is prohibited and could subject you to civil and/or criminal liability. Your use of the Vet Bookr App does not create any interest in the intellectual property of Vet Bookr. You agree that you will not use the Vet Bookr App for any purpose other than the use described above, and have no authority to use the content of the Vet Bookr App, for any purpose other than those expressly provided by Vet Bookr.",
                       style: TextStyle(fontSize: 12)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
+                  padding: EdgeInsets.only(
                       bottom: 10.0, left: 10.0, right: 10.0),
                   child: Text("5. Modifications", style: TextStyle(
                       fontSize: 14, fontWeight: FontWeight.bold)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
+                  padding: EdgeInsets.only(
                       bottom: 10.0, left: 10.0, right: 10.0),
                   child: Text(
                       "Vet Bookr reserves the right to change the privacy policy at any time.",
                       style: TextStyle(fontSize: 12)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
+                  padding: EdgeInsets.only(
                       bottom: 10.0, left: 10.0, right: 10.0),
                   child: Text("7. Termination of Account", style: TextStyle(
                       fontSize: 14, fontWeight: FontWeight.bold)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
+                  padding: EdgeInsets.only(
                       bottom: 10.0, left: 10.0, right: 10.0),
                   child: Text(
                       "Vet Bookr has the exclusive right to terminate your account for any reason, at any time.",

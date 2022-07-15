@@ -14,17 +14,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late Future<List<Movie>> movieList;
+  late Future<List<Movie>> charityList;
 
   int i = 0;
 
-  List<String> movieUrl = [
+  List<String> charityUrl = [
     "https://api.themoviedb.org/3/movie/popular?",
     "https://api.themoviedb.org/3/trending/movie/week?",
   ];
 
   Future<List<Movie>> getMovie() async {
-    var response = await Download(movieUrl[i]).getResponseFromApi();
+    var response = await Download(charityUrl[i]).getResponseFromApi();
     var responseJsonObject = jsonDecode(response);
     var results = responseJsonObject["results"];
 
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    movieList =   getMovie();
+    charityList =   getMovie();
 
     return Scaffold(
         extendBodyBehindAppBar: true,
@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
         margin: EdgeInsets.only(top: 10),
         color: const Color(0xFFfbfcff),
         child: FutureBuilder<List<Movie>>(
-            future: movieList,
+            future: charityList,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return GridView.builder(

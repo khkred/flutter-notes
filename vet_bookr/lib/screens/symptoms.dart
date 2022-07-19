@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vet_bookr/screens/clinics_list.dart';
+import 'package:vet_bookr/screens/vetMaps.dart';
 import 'package:vet_bookr/screens/list_pet.dart';
 import 'package:vet_bookr/models/pet.dart';
 import 'package:vet_bookr/screens/pet_ui.dart';
@@ -95,7 +95,7 @@ class _SymptomsState extends State<Symptoms> {
                     } else {
 
                       addPetToFireStore(symptomsController);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Clinics_List()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => VetsMaps()));
                     }
                   },
                   child: Text("Upload Pet")))

@@ -1,3 +1,4 @@
+import 'package:vet_bookr/screens/clinics_list.dart';
 import 'package:vet_bookr/screens/symptoms.dart';
 
 import '/screens/dynamic_user_validation.dart';

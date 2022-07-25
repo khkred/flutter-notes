@@ -1,14 +1,20 @@
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:vet_bookr/screens/dynamic_user_validation.dart';
 import 'package:vet_bookr/screens/list_pet.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:vet_bookr/screens/pharmacyList.dart';
+import 'package:vet_bookr/screens/social_list.dart';
+import 'package:vet_bookr/screens/symptoms.dart';
+
+import '../models/pharmacy.dart';
+import '../models/social.dart';
 
 class HomeScreen extends StatefulWidget {
 
-  final User user;
-  final FirebaseAuth auth;
 
+  late final User user;
+  late final FirebaseAuth auth;
 
   HomeScreen({required this.auth, required this.user});
 
@@ -17,8 +23,30 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  
+  var navigationIndex = [
+    HomeScreen(auth: auth, user: user),
+    Symptoms(""),
+    SocialList(social!),
+    PharmacyList(pharmacy!)
+  ];
 
+  int _selectedIndex = 0;
 
+  final iconsList = <IconData>[
+    Icons.home,
+    Icons.local_hospital,
+    Icons.local_drink,
+    Icons.local_pharmacy,
+  ];
+
+  static Social? get social => null;
+
+  static Pharmacy? get pharmacy => null;
+
+  static get user => null;
+
+  static get auth => null;
 
   Future<bool?> _onBackPressed(BuildContext context) {
 
@@ -52,6 +80,16 @@ class _HomeScreenState extends State<HomeScreen> {
         return result ?? false;
       },
       child: Scaffold(
+        bottomNavigationBar:SalomonBottomBar(
+          items:[
+            SalomonBottomBarItem(icon: Icon(Icons.home), title: Text("Home")),
+            SalomonBottomBarItem(icon: Icon(Icons.local_hospital), title: Text("Clinics")),
+            SalomonBottomBarItem(icon: Icon(Icons.local_drink), title: Text("Pet Social")),
+            SalomonBottomBarItem(icon: Icon(Icons.local_pharmacy), title: Text("Pharmacy")),
+          ],
+          onTap: (index) => setState(() => _selectedIndex = index),
+
+        ),
         appBar: AppBar(
           actions: [IconButton(onPressed: (){
             signOutUser();
@@ -87,8 +125,6 @@ class _HomeScreenState extends State<HomeScreen> {
       const snackBar = SnackBar(
           content: Text("User has been signed out"));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
     });
-
   }
 }

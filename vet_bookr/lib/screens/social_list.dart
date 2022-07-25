@@ -1,11 +1,11 @@
-import 'package:vet_bookr/models/vet_clinic.dart';
+import 'package:vet_bookr/models/social.dart';
 import 'package:flutter/material.dart';
-import 'package:vet_bookr/screens/clinicsDetails.dart';
+import 'package:vet_bookr/screens/socialDetails.dart';
 
-class ClinicsList extends StatelessWidget {
-  VetClinic vetClinic;
+class SocialList extends StatelessWidget {
+  Social social;
 
-  ClinicsList(this.vetClinic);
+  SocialList(this.social);
 
   @override
   Widget build(BuildContext context) {
@@ -21,35 +21,35 @@ class ClinicsList extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
               child: ListTile(
-                title: Text("${vetClinic.name}"),
-                subtitle: Text("${vetClinic.timing}"),
+                title: Text("${social.name}"),
+                subtitle: Text("${social.timing}"),
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ClinicsDetails(vetClinic)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SocialDetails(social)));
                 },
               ),
             ),
           ),
           Padding(
             padding:
-                const EdgeInsets.only(bottom: 10.0, left: 10.0, right: 10.0),
+            const EdgeInsets.only(bottom: 10.0, left: 10.0, right: 10.0),
             child: Card(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
               child: ListTile(
-                title: Text("${vetClinic.name}"),
-                subtitle: Text("${vetClinic.timing}"),
+                title: Text("${social.name}"),
+                subtitle: Text("${social.timing}"),
               ),
             ),
           ),
           Padding(
             padding:
-                const EdgeInsets.only(bottom: 10.0, left: 10.0, right: 10.0),
+            const EdgeInsets.only(bottom: 10.0, left: 10.0, right: 10.0),
             child: Card(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
               child: ListTile(
-                title: Text("${vetClinic.name}"),
-                subtitle: Text("${vetClinic.timing}"),
+                title: Text("${social.name}"),
+                subtitle: Text("${social.timing}"),
               ),
             ),
           ),

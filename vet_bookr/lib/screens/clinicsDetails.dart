@@ -1,21 +1,21 @@
 import 'dart:convert';
 
-import 'package:vet_bookr/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:http/http.dart' as http;
-import 'package:vet_bookr/models/total_data_vet.dart';
 import 'package:vet_bookr/models/vet_clinic.dart';
+import 'package:http/http.dart' as http;
 
-class VetsMaps extends StatefulWidget {
-  const VetsMaps({Key? key}) : super(key: key);
 
-  @override
-  State<VetsMaps> createState() => _VetsMapsState();
-}
+import '../models/total_data_vet.dart';
+import '../utils/constants.dart';
 
-class _VetsMapsState extends State<VetsMaps> {
+class ClinicsDetails extends StatelessWidget {
+  VetClinic vetClinic;
+
+  ClinicsDetails(this.vetClinic);
+
+
   late GoogleMapController googleMapController;
 
   static const String _kLocationServicesDisabledMessage =
@@ -24,6 +24,7 @@ class _VetsMapsState extends State<VetsMaps> {
   static const String _kPermissionDeniedForeverMessage =
       'Permission denied forever.';
   static const String _kPermissionGrantedMessage = 'Permission granted.';
+
 
   Future<Position> determinePosition() async {
     ///Check if location is enabled
@@ -67,10 +68,9 @@ class _VetsMapsState extends State<VetsMaps> {
     return latLong;
   }
 
-  late VetClinic vetClinic;
-
   Future<TotalVetData> getTotalData() async {
     List<double> latLng = await getLatLng();
+
 
     String vetsUrl =
         "https://www.google.com/maps/dir/?api=1"
@@ -113,29 +113,45 @@ class _VetsMapsState extends State<VetsMaps> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<TotalVetData>(
-          future: getTotalData(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              print(snapshot.data);
-              return Container(
-                child: GoogleMap(
-                  onMapCreated: _onMapCreated,
-                  initialCameraPosition: CameraPosition(
-                    target: LatLng(
-                        snapshot.data!.usersLat, snapshot.data!.usersLng),
-                    zoom: 11.0,
-                  ),
-                  markers: _markers,
-                ),
-              );
-            }
-            if (snapshot.hasError) {
-              return Center(child: Text("${snapshot.error}"));
-            }
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text("${vetClinic.name}"),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0, bottom: 10.0, right: 10.0),
+            child: Text("${vetClinic.address}"),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0, bottom: 10.0, right: 10.0),
+            child: Text("${vetClinic.timing}"),
+          ),
+          FutureBuilder<TotalVetData>(
+              future: getTotalData(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  print(snapshot.data);
+                  return Container(
+                    child: GoogleMap(
+                      onMapCreated: _onMapCreated,
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(
+                            snapshot.data!.usersLat, snapshot.data!.usersLng),
+                        zoom: 11.0,
+                      ),
+                      markers: _markers,
+                    ),
+                  );
+                }
+                if (snapshot.hasError) {
+                  return Center(child: Text("${snapshot.error}"));
+                }
 
-            return CircularProgressIndicator();
-          }),
+                return CircularProgressIndicator();
+              }),
+        ],
+      ),
     );
   }
 }

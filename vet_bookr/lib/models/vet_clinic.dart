@@ -5,7 +5,7 @@ class VetClinic {
   final String placeId;
   final double rating;
   final String address;
-  final int number;
+  final double timing;
 
   const VetClinic(
       {required this.name,
@@ -14,7 +14,7 @@ class VetClinic {
       required this.placeId,
       required this.lat,
       required this.lng,
-      required this.number});
+      required this.timing});
 
   factory VetClinic.fromJson(Map<String, dynamic> vetJson) => VetClinic(
       name: vetJson["name"],
@@ -23,6 +23,6 @@ class VetClinic {
       placeId: vetJson["place_id"],
       lat: vetJson["geometry"]["location"]["lat"],
       lng: vetJson["geometry"]["location"]["lng"],
-      number: vetJson["number"]
+      timing: vetJson["opening_hours"]
   );
 }

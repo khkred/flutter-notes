@@ -71,7 +71,7 @@ class PharmacyDetails extends StatelessWidget {
   Future<TotalPharmacyData> getTotalData() async {
     List<double> latLng = await getLatLng();
 
-    String searchUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=pet&location=17.491659%2C78.391983&radius=2500&type=pharmacy&key=AIzaSyCFU_wVs-2KKFaC6qKKkm5XWbSqqa0_fc8";
+    String searchUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=pet&location=${latLng[0]}%2C${latLng[1]}&radius=2500&type=pharmacy&key=${Constants.apiKey}";
 
     String pharmacyUrl =
         "https://www.google.com/maps/dir/?api=1"

@@ -6,7 +6,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vet_bookr/models/vet_clinic.dart';
 import 'package:http/http.dart' as http;
 
-
 import '../models/total_data_vet.dart';
 import '../utils/constants.dart';
 
@@ -14,7 +13,6 @@ class ClinicsDetails extends StatelessWidget {
   VetClinic vetClinic;
 
   ClinicsDetails(this.vetClinic);
-
 
   late GoogleMapController googleMapController;
 
@@ -24,7 +22,6 @@ class ClinicsDetails extends StatelessWidget {
   static const String _kPermissionDeniedForeverMessage =
       'Permission denied forever.';
   static const String _kPermissionGrantedMessage = 'Permission granted.';
-
 
   Future<Position> determinePosition() async {
     ///Check if location is enabled
@@ -54,7 +51,6 @@ class ClinicsDetails extends StatelessWidget {
     return Geolocator.getCurrentPosition();
   }
 
-
   void _onMapCreated(GoogleMapController controller) {
     googleMapController = controller;
   }
@@ -71,31 +67,27 @@ class ClinicsDetails extends StatelessWidget {
   Future<TotalVetData> getTotalData() async {
     List<double> latLng = await getLatLng();
 
-
     String vetsUrl =
-        "https://www.google.com/maps/dir/?api=1"
-        "&origin=${latLng[0]}&2C${latLng[1]}&destination=${vetClinic.placeId}&travelmode=driving&key=${Constants
-        .apiKey}";
-
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=vets&location=${latLng[0]}%2C${latLng[1]}&radius=2500&type=veterinary_care&key=${Constants.apiKey}";
 
     ///Getting the data
     final response = await http.get(Uri.parse(vetsUrl));
 
     final Map<String, dynamic> data = jsonDecode(response.body);
 
-
     // print(data);
 
-
-    List<VetClinic> vetClinics = (data["results"] as List).map((vetJson) =>
-        VetClinic.fromJson(vetJson)).toList();
+    List<VetClinic> vetClinics = (data["results"] as List)
+        .map((vetJson) => VetClinic.fromJson(vetJson))
+        .toList();
 
     /**
      * Adding the markerss
      */
 
     for (vetClinic in vetClinics) {
-      final marker = Marker(markerId: MarkerId(vetClinic.placeId),
+      final marker = Marker(
+        markerId: MarkerId(vetClinic.placeId),
         position: LatLng(vetClinic.lat.toDouble(), vetClinic.lng.toDouble()),
         infoWindow: InfoWindow(
           title: vetClinic.name,
@@ -109,7 +101,6 @@ class ClinicsDetails extends StatelessWidget {
         usersLat: latLng[0], usersLng: latLng[1], vetClinics: vetClinics);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,11 +111,13 @@ class ClinicsDetails extends StatelessWidget {
             child: Text("${vetClinic.name}"),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 10.0, bottom: 10.0, right: 10.0),
+            padding:
+                const EdgeInsets.only(left: 10.0, bottom: 10.0, right: 10.0),
             child: Text("${vetClinic.address}"),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 10.0, bottom: 10.0, right: 10.0),
+            padding:
+                const EdgeInsets.only(left: 10.0, bottom: 10.0, right: 10.0),
             child: Text("${vetClinic.timing}"),
           ),
           FutureBuilder<TotalVetData>(

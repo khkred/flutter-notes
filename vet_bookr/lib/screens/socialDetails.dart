@@ -72,9 +72,7 @@ class SocialDetails extends StatelessWidget {
     List<double> latLng = await getLatLng();
 
     String socialUrl =
-        "https://www.google.com/maps/dir/?api=1"
-        "&origin=${latLng[0]}&2C${latLng[1]}&destination=${social.placeId}&travelmode=driving&key=${Constants
-        .apiKey}";
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=pet&location=${latLng[0]}%2C${latLng[1]}&radius=2500&type=pet_store&key=${Constants.apiKey}";
 
 
     ///Getting the data
